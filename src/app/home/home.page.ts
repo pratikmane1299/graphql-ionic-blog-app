@@ -5,6 +5,8 @@ import { Subscription } from 'rxjs';
 import { Apollo } from 'apollo-angular';
 import gql from 'graphql-tag';
 
+import { timeDifferenceForDate } from './../utils/util';
+
 const userFeedQuery = gql`
   query posts {
     posts {
@@ -59,6 +61,10 @@ export class HomePage implements OnInit, OnDestroy {
         this.feed = data['posts'];
         this.loading = loading;
       });
+  }
+
+  formatDate(date: string) {
+    return timeDifferenceForDate(date);
   }
 
 }
