@@ -1,0 +1,63 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Add Awesome Post</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="add-post-form">
+    <form #addPostFrom="ngForm" ngForm (ngSubmit)="onAddPost(addPostFrom.form.value)">
+      <ion-item>
+          <ion-label class="add-post-form-lbl" position="floating">Title</ion-label>
+          <ion-input 
+            id="title" 
+            name="title" 
+            type="text"
+            ngModel
+            #title="ngModel" 
+            required
+          >
+        </ion-input>
+      </ion-item>
+      <div class="add-post-from-validation-container" *ngIf="addPostFrom.submitted && title.invalid">
+        <p class="add-post-form-validation-msg" *ngIf="title.errors.required">Title is required</p>
+      </div>
+  
+      <ion-item>
+          <ion-label class="add-post-form-lbl" position="floating">Content</ion-label>
+          <ion-textarea 
+          id="content" 
+          name="content" 
+          rows="5" 
+          type="text"
+          ngModel
+          #content="ngModel" 
+          required
+        ></ion-textarea>
+      </ion-item>
+      <div class="add-post-from-validation-container" *ngIf="addPostFrom.submitted && content.invalid">
+        <p class="add-post-form-validation-msg" *ngIf="content.errors.required">Content is required</p>
+      </div>
+
+      <ion-item>
+        <ion-label class="add-post-form-lbl" position="floating">Thumbnail</ion-label>
+        <ion-input 
+        id="thumbnail" 
+        name="thumbnail" 
+        type="text"
+        ngModel
+        #thumbnail="ngModel"  
+        required
+      ></ion-input>
+      </ion-item>
+      <div class="add-post-from-validation-container" *ngIf="addPostFrom.submitted && thumbnail.invalid">
+        <p class="add-post-form-validation-msg" *ngIf="thumbnail.errors.required">Thumbnail is required</p>
+      </div>
+
+      <ion-button type="submit" class="add-post-form-btn" expand="block" color="primary" [disabled]="">{{ !isLoading ? 'Add New Post' : 'Adding Post...' }}</ion-button>
+    </form>
+  </div>
+</ion-content>

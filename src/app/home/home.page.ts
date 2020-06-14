@@ -1,4 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 
 import { Apollo } from 'apollo-angular';
@@ -12,9 +13,6 @@ const userFeedQuery = gql`
       content
       thumbnail
       createdAt
-      author {
-        username
-      }
     }
   }
 `;
@@ -31,10 +29,18 @@ export class HomePage implements OnInit, OnDestroy {
   loading = false;
   querySubscription: Subscription;
 
-  constructor(private apollo: Apollo) { }
+  constructor(private apollo: Apollo, private router: Router) { }
 
   ngOnInit() {
+    // this.loadFeed();
+  }
+
+  ionViewWillEnter() {
     this.loadFeed();
+  }
+
+  goToAddPost() {
+    this.router.navigateByUrl('/add-post');
   }
 
   ngOnDestroy() {
@@ -45,12 +51,12 @@ export class HomePage implements OnInit, OnDestroy {
 
   loadFeed() {
     this.loading = true;
-    this.querySubscription = this.apollo.watchQuery<any>({
+    this.querySubscription = this.apollo.watchQuery({
       query: userFeedQuery
     })
       .valueChanges
       .subscribe(({ data, loading }) => {
-        this.feed = data.posts;
+        this.feed = data['posts'];
         this.loading = loading;
       });
   }
