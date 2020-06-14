@@ -7,24 +7,27 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
+  <!-- <ion-header collapse="condense">
     <ion-toolbar>
       <ion-title size="large">Blank</ion-title>
     </ion-toolbar>
-  </ion-header>
+  </ion-header> -->
 
   <div *ngIf="!loading;else skeleton">
-    <ion-list>
-      <ion-item *ngFor="let post of feed">
+    <ion-list lines="none">
+      <ion-item *ngFor="let post of feed" detail="true">
+        <ion-thumbnail slot="start">
+          <img class="post-thumbnail" [src]="post.thumbnail">
+        </ion-thumbnail>
         <ion-label>
           <h3 class="post-title">{{ post.title }}</h3>
           <p class="post-body">{{ post.content }}</p>
+          <span class="post-datetime">{{ post.createdAt | date: 'short' }}</span>
         </ion-label>
       </ion-item>
+
     </ion-list>
   </div>
-
-  
 
   <ng-template #skeleton>
     <ion-list>
@@ -40,6 +43,5 @@
       </ion-item>
     </ion-list>
   </ng-template>
-
   
 </ion-content>
