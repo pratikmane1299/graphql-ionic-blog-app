@@ -22,7 +22,7 @@
         <ion-label>
           <h3 class="post-title">{{ post.title }}</h3>
           <p class="post-body">{{ post.content }}</p>
-          <span class="post-datetime">{{ post.createdAt | date: 'short' }}</span>
+          <span class="post-datetime">{{ formatDate(post.createdAt) }}</span>
         </ion-label>
       </ion-item>
 
