@@ -51,7 +51,6 @@ export class AddPostPage implements OnInit {
         content: post.content,
         thumbnail: post.thumbnail
       }, update: (cache, { data }) => {
-        console.log(data);
         const existingFeed = cache.readQuery({
           query: userFeedQuery
         });

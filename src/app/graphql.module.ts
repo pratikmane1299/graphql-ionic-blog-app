@@ -10,7 +10,7 @@ export function createApollo(httpLink: HttpLink) {
 
   const auth = setContext((operation, context) => ({
     headers: {
-      Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVlZTRmNmE0YTE5ZjMwMjEwMWIwMDg1ZiIsInVzZXJuYW1lIjoib3giLCJpYXQiOjE1OTIxNDM3MjgsImV4cCI6MTU5MjE0NzMyOH0.lJ8N6_hN3AK1dxSVq25XLrVG0aGlujJyHzTNu4EdJGw`
+      Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVlZTRmNmE0YTE5ZjMwMjEwMWIwMDg1ZiIsInVzZXJuYW1lIjoib3giLCJpYXQiOjE1OTIxNDc0MjYsImV4cCI6MTU5MjE1MTAyNn0.DL6bpmuFmJzhRumpS2upqsvUNGI2tJyVxfefAd5Gsmg`
     }
   }));
 
