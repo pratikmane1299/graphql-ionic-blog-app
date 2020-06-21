@@ -16,7 +16,15 @@ const signUpMutation = gql`
   }
 `;
 
-interface SignUpInput {
+const loginMutation = gql`
+  mutation login($username: String!, $password: String!) {
+    login(username: $username, password: $password) {
+      token
+    }
+  }
+`;
+
+interface AuthInput {
   username: string;
   password: string;
 }
@@ -32,16 +40,17 @@ interface SignUpResponse {
 })
 export class AuthService {
 
-  private token = new BehaviorSubject<string>(null);
+  private tokenSubject: BehaviorSubject<string> = new BehaviorSubject<string>(null);
+  token$;
 
   constructor(private apollo: Apollo, private storage: Storage, private plt: Platform) {
-    from(this.plt.ready()).pipe(
+    this.token$ = from(this.plt.ready()).pipe(
       switchMap(() => {
         return from(this.storage.get('loggedInUser'));
       }),
       map(token => {
         if (token) {
-          this.token.next(token);
+          this.tokenSubject.next(token);
           return true;
         } else {
           return false;
@@ -51,10 +60,10 @@ export class AuthService {
   }
 
   getToken() {
-    return this.token.asObservable();
+    return this.tokenSubject.asObservable();
   }
 
-  signUp(data: SignUpInput) {
+  signUp(data: AuthInput) {
     return this.apollo.mutate({
       mutation: signUpMutation,
       variables: {
@@ -65,8 +74,27 @@ export class AuthService {
     .pipe(
       take(1),
       map(({ data }) => {
-        console.log(data);
         return data.signUp.token;
+      }),
+      switchMap(token => {
+        return from(this.storage.set('loggedInUser', token));
+      })
+    );
+  }
+
+  login(data: AuthInput) {
+    return this.apollo.mutate({
+      mutation: loginMutation,
+      variables: {
+        username: data.username,
+        password: data.password
+      }
+    })
+    .pipe(
+      take(1),
+      map(({ data }) => {
+        console.log(data);
+        return data.login.token;
       }),
       switchMap(token => {
         return from(this.storage.set('loggedInUser', token));

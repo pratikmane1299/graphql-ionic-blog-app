@@ -1,11 +1,7 @@
-ion-toolbar {
-    box-shadow: none;
-}
-
 .container {
-    margin-top: 1.5rem;
-    // top: 10%;
-    // position: absolute;
+    margin: 0;
+    top: 10%;
+    position: absolute;
 
     .header {
         width: 100vw;
@@ -27,7 +23,7 @@ ion-toolbar {
     }
 }
 
-.signup-form {
+.login-form {
     margin-top: 5rem;
     height: auto;
     padding:0px 25px 0 25px;

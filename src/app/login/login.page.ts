@@ -3,22 +3,20 @@ import { Router } from '@angular/router';
 
 import { LoadingController } from '@ionic/angular';
 
-import { Apollo } from 'apollo-angular';
-import gql from 'graphql-tag';
-
 import { AuthService } from '../services/auth.service';
 import { Subscription } from 'rxjs';
 
+
 @Component({
-  selector: 'app-signup',
-  templateUrl: './signup.page.html',
-  styleUrls: ['./signup.page.scss'],
+  selector: 'app-login',
+  templateUrl: './login.page.html',
+  styleUrls: ['./login.page.scss'],
 })
-export class SignupPage implements OnInit, OnDestroy {
+export class LoginPage implements OnInit, OnDestroy {
 
   passwordType = 'password';
   isSecure = true;
-  signUpSubscription: Subscription;
+  loginSubscription: Subscription;
 
   constructor(
     private loadingController: LoadingController,
@@ -34,9 +32,9 @@ export class SignupPage implements OnInit, OnDestroy {
     this.isSecure ? this.passwordType = 'password' : this.passwordType = 'text';
   }
 
-  async onSignup(signUpForm) {
+  async onLogin(loginForm) {
     await this.showLoading();
-    this.signUpSubscription = this.authService.signUp(signUpForm.form.value).subscribe(async res => {
+    this.loginSubscription = this.authService.login(loginForm.form.value).subscribe(async res => {
       await this.loadingController.dismiss();
       this.router.navigateByUrl('/home');
     });
@@ -44,15 +42,16 @@ export class SignupPage implements OnInit, OnDestroy {
 
   async showLoading() {
     const loader = await this.loadingController.create({
-      message: 'Please Wait'
+      message: 'Please Wait, Authenticating'
     });
 
     loader.present();
   }
 
   ngOnDestroy() {
-    if (this.signUpSubscription) {
-      this.signUpSubscription.unsubscribe();
+    if (this.loginSubscription) {
+      this.loginSubscription.unsubscribe();
     }
   }
+
 }

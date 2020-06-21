@@ -1,19 +1,11 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-buttons>
-      <ion-back-button defaultHref="login"></ion-back-button>
-    </ion-buttons>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content>
   <div class="container">
     <div class="header">
-      <h3 class="create-account-header">Create Account,</h3>
-      <span class="signup-message">Sign up to get started!</span>
+      <h3 class="create-account-header">Welcome Back,</h3>
+      <span class="signup-message">Sign in to continue</span>
     </div>
-    <form #signUpForm="ngForm" (ngSubmit)="onSignup(signUpForm)">
-      <div class="signup-form">
+    <form #loginForm="ngForm" (ngSubmit)="onLogin(loginForm)">
+      <div class="login-form">
         <ion-item lines="none">
           <ion-input 
             id="username"
@@ -52,12 +44,13 @@
             Password is required
           </span>
         </div>
-        <ion-button type="submit" class="login-btn" expand="block" mode="md" [disabled]="!signUpForm.form.valid">Sign Up</ion-button>
+        <span class="forgot-password-link">Forgot Password ?</span>
+        <ion-button type="submit" class="login-btn" expand="block" mode="md" [disabled]="!loginForm.form.valid">Sign In</ion-button>
       </div>
     </form>
   </div>
   <div class="footer">
-    <span class="txt-1">I'm already a member.</span>
-    <span class="txt-2" routerLink="/login">Sign In</span>
+    <span class="txt-1">Don't have an account.</span>
+    <span class="txt-2" routerLink="/signup">Create New</span>
   </div>
 </ion-content>
