@@ -1,0 +1,63 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons>
+      <ion-back-button defaultHref="login"></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="container">
+    <div class="header">
+      <h3 class="create-account-header">Create Account,</h3>
+      <span class="signup-message">Sign up to get started!</span>
+    </div>
+    <form #signUpForm="ngForm" (ngSubmit)="onSignup(signUpForm)">
+      <div class="signup-form">
+        <ion-item lines="none">
+          <ion-input 
+            id="username"
+            name="username" 
+            #username="ngModel" 
+            type="text" 
+            ngModel
+            placeholder="Username"
+            required
+          ></ion-input>
+        </ion-item>
+        <div class="validation-msg-container" *ngIf="username.touched && username.invalid">
+          <span class="validation-msg" *ngIf="username.errors.required">Username is required</span>
+        </div>
+        <ion-item lines="none">
+          <ion-input 
+            id="password"
+            name="password" 
+            #password="ngModel" 
+            placeholder="Password" 
+            [type]="passwordType" 
+            ngModel
+            required
+          ></ion-input>
+          <ion-icon *ngIf="isSecure" name="eye-off" color="medium" (click)="toggleEye()"></ion-icon>
+          <ion-icon *ngIf="!isSecure" name="eye" color="primary" (click)="toggleEye()"></ion-icon>
+        </ion-item>
+        <div 
+          class="validation-msg-container" 
+          *ngIf="password.invalid && (password.dirty || password.touched)"
+          >
+          <span 
+            class="validation-msg" 
+            *ngIf="password.errors.required"
+          >
+            Password is required
+          </span>
+        </div>
+        <ion-button type="submit" class="login-btn" expand="block" mode="md" [disabled]="!signUpForm.form.valid">Sign Up</ion-button>
+      </div>
+    </form>
+  </div>
+  <div class="footer">
+    <span class="txt-1">I'm already a member.</span>
+    <span class="txt-2" routerLink="/login">Sign In</span>
+  </div>
+</ion-content>

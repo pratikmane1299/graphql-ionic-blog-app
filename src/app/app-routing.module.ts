@@ -24,12 +24,8 @@ const routes: Routes = [
     path: '',
     redirectTo: 'home',
     pathMatch: 'full'
-<<<<<<< HEAD
-  }
-=======
   },
 
->>>>>>> origin/master
 ];
 
 @NgModule({

@@ -1,0 +1,172 @@
+ion-toolbar {
+    box-shadow: none;
+}
+
+.container {
+    margin-top: 1.5rem;
+    // top: 10%;
+    // position: absolute;
+
+    .header {
+        width: 100vw;
+        height: auto;
+        // padding: 0 16px;
+        padding:0px 25px 0 25px;
+
+        .create-account-header {
+            font-size: 28px;
+            font-weight: 600;
+            color: var(--ion-color-dark-shade);
+        }
+    
+        .signup-message {
+            font-size: 21px;
+            color: var(--ion-color-medium);
+            letter-spacing: 0.02rem;
+        }
+    }
+}
+
+.signup-form {
+    margin-top: 5rem;
+    height: auto;
+    padding:0px 25px 0 25px;
+    //border: 1px solid red;
+
+    ion-item {
+        margin-top: 15px;
+        border: 1px solid var(--ion-color-medium);
+        border-radius: 4px;
+        font-size: 14px;
+        --background: #fafafa;
+        //color: var(--ion-color-medium);
+        ion-input {
+            font-size: 18px;
+            letter-spacing: 0.04rem;
+        }
+    }
+
+    .validation-msg-container {
+        
+        padding: 0.2rem 0.3rem;
+
+        .validation-msg {
+            font-size: 16px;
+            font-weight: 600;
+            letter-spacing: 0.01rem;
+            color: var(--ion-color-danger);
+        }
+    }
+
+    .login-btn {
+        margin-top: 3.8rem;
+        --background: var(--ion-color-primary);
+        border-radius: 4px;
+        text-transform: capitalize;
+        height: 50px;
+        margin-bottom: 10px;
+        font-size: 1.1rem;
+        letter-spacing: 0.035rem;
+    }
+
+    .forgot-password-link {
+        margin-top: 0.3rem;
+        float: right;
+        font-size: 12px;
+        font-weight: bolder;
+    }
+
+    .help-msg1, .help-msg2 {
+        font-size: 12px;
+        letter-spacing: 0.01rem;
+    }
+
+    .help-msg1 {
+        
+        color: var(--ion-color-medium);
+    }
+
+    .help-msg2 {
+        
+        font-weight: 800;
+        color: var(--ion-color-dark);
+    }
+
+    .facebook-login-wrapper {
+        margin-top: 27px;
+        line-height: 23px;
+        //border: 1px solid yellow;
+        color: var(--ion-color-primary);
+
+        .facebook-login-link {
+            line-height: 12px;
+            font-size: 14px;
+            
+            font-weight: 700;
+            text-transform: capitalize;
+        }
+    }
+
+    .or-wrapper {
+        margin-top: 18px;
+        //border: 1px solid blue;
+        color: var(--ion-color-medium);
+        
+        ion-col {
+            span {
+                line-height: 10px;
+                font-size: 14px;
+                font-weight: 600;
+            }
+        }
+
+        hr {
+            display: block;
+            height: 1px;
+            border: 0;
+            border-top: 1px solid var(--ion-color-medium);
+            padding: 0;
+        }
+    }
+    .sigin-wrapper {
+        //border: 1px solid green;
+        margin-top: 18px;
+        line-height: 18px;
+        margin-bottom: 15px;
+
+        .txt-1, .txt-2 {
+            font-size: 12px;
+        }
+
+        .txt-1 {
+            color: var(--ion-color-medium);
+        }
+
+        .txt-2 {
+            font-weight: 900;
+            color: var(--ion-color-dark);
+        }
+    }
+}
+
+.footer {
+    position:absolute;
+    bottom: 3.5rem;
+    width:100%;
+    height:20px;
+
+    text-align: center;
+
+    .txt-1, .txt-2 {
+        font-size: 14px;
+        font-weight: 700;
+        letter-spacing: 0.035rem;
+        margin-right: 1px;
+    }
+
+    .txt-2 {
+        color: var(--ion-color-primary);
+        margin-left: 1px;
+    }
+
+}

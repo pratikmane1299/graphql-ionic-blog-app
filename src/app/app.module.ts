@@ -22,11 +22,8 @@ import { HttpClientModule } from '@angular/common/http';
     AppRoutingModule,
     GraphQLModule,
     HttpClientModule,
-<<<<<<< HEAD
-    FormsModule
-=======
+    FormsModule,
     IonicStorageModule.forRoot()
->>>>>>> origin/master
   ],
   providers: [
     StatusBar,
