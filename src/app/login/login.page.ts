@@ -36,6 +36,7 @@ export class LoginPage implements OnInit, OnDestroy {
     await this.showLoading();
     this.loginSubscription = this.authService.login(loginForm.form.value).subscribe(async res => {
       await this.loadingController.dismiss();
+      console.log(res);
       this.router.navigateByUrl('/home');
     });
   }
