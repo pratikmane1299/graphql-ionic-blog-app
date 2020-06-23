@@ -40,10 +40,14 @@ interface SignUpResponse {
 })
 export class AuthService {
 
-  private tokenSubject: BehaviorSubject<string> = new BehaviorSubject<string>(null);
+  tokenSubject = new BehaviorSubject<string>(null);
   token$;
 
-  constructor(private apollo: Apollo, private storage: Storage, private plt: Platform) {
+  constructor(
+    private apollo: Apollo,
+    private storage: Storage,
+    private plt: Platform
+  ) {
     this.token$ = from(this.plt.ready()).pipe(
       switchMap(() => {
         return from(this.storage.get('loggedInUser'));
@@ -59,8 +63,8 @@ export class AuthService {
     );
   }
 
-  getToken() {
-    return this.tokenSubject.asObservable();
+  get token(): string {
+    return this.tokenSubject.value;
   }
 
   signUp(data: AuthInput) {
@@ -74,9 +78,10 @@ export class AuthService {
     .pipe(
       take(1),
       map(({ data }) => {
-        return data.signUp.token;
+        return data['signUp'].token;
       }),
       switchMap(token => {
+        this.tokenSubject.next(token);
         return from(this.storage.set('loggedInUser', token));
       })
     );
@@ -93,10 +98,10 @@ export class AuthService {
     .pipe(
       take(1),
       map(({ data }) => {
-        console.log(data);
-        return data.login.token;
+        return data['login'].token;
       }),
       switchMap(token => {
+        this.tokenSubject.next(token);
         return from(this.storage.set('loggedInUser', token));
       })
     );

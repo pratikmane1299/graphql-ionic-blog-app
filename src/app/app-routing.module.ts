@@ -17,6 +17,11 @@ const routes: Routes = [
     loadChildren: () => import('./login/login.module').then( m => m.LoginPageModule)
   },
   {
+    path: 'add-post',
+    loadChildren: () => import('./add-post/add-post.module').then( m => m.AddPostPageModule),
+    canActivate: [AuthGuard]
+  },
+  {
     path: '',
     redirectTo: 'home',
     pathMatch: 'full'
