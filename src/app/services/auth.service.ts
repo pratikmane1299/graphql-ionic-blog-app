@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { from, BehaviorSubject } from 'rxjs';
-import { take, map, switchMap, tap } from 'rxjs/operators';
+import { take, map, switchMap } from 'rxjs/operators';
 
 import { Platform } from '@ionic/angular';
 import { Storage } from '@ionic/storage';
