@@ -6,23 +6,8 @@ import { Platform } from '@ionic/angular';
 import { Storage } from '@ionic/storage';
 
 import { Apollo } from 'apollo-angular';
-import gql from 'graphql-tag';
 
-const signUpMutation = gql`
-  mutation signUp($username: String!, $password: String!) {
-    signUp(username: $username, password: $password) {
-      token
-    }
-  }
-`;
-
-const loginMutation = gql`
-  mutation login($username: String!, $password: String!) {
-    login(username: $username, password: $password) {
-      token
-    }
-  }
-`;
+import { signUpMutation, loginMutation } from './../graphql/mutations';
 
 interface AuthInput {
   username: string;

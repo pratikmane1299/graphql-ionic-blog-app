@@ -2,31 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { Apollo } from 'apollo-angular';
-import gql from 'graphql-tag';
 
-const addNewPostMutation = gql`
-  mutation addNewPost($title: String!, $content: String!, $thumbnail: String) {
-    createPost(title: $title, content: $content, thumbnail: $thumbnail) {
-      id
-      title
-      content
-      thumbnail
-      createdAt
-    }
-  }
-`;
-
-const userFeedQuery = gql`
-  query feed($offset: Int, $limit: Int) {
-    feed(offset: $offset, limit: $limit) {
-      id,
-      title,
-      content,
-      thumbnail,
-      createdAt
-    }
-  }
-`;
+import { userFeedQuery } from './../graphql/queries';
+import { addNewPostMutation } from './../graphql/mutations';
 
 @Component({
   selector: 'app-add-post',

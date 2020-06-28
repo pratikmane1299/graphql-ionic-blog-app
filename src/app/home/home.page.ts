@@ -3,21 +3,9 @@ import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 
 import { Apollo, QueryRef } from 'apollo-angular';
-import gql from 'graphql-tag';
 
 import { timeDifferenceForDate } from './../utils/util';
-
-const userFeedQuery = gql`
-  query feed($offset: Int, $limit: Int) {
-    feed(offset: $offset, limit: $limit) {
-      id,
-      title,
-      content,
-      thumbnail,
-      createdAt
-    }
-  }
-`;
+import { userFeedQuery } from './../graphql/queries';
 
 @Component({
   selector: 'app-home',
