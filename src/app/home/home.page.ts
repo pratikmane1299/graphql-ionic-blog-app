@@ -4,7 +4,6 @@ import { Subscription } from 'rxjs';
 
 import { Apollo, QueryRef } from 'apollo-angular';
 
-import { timeDifferenceForDate } from './../utils/util';
 import { userFeedQuery } from './../graphql/queries';
 
 @Component({
@@ -82,9 +81,4 @@ export class HomePage implements OnInit, OnDestroy {
       console.log(error);
     }
   }
-
-  formatDate(date: string) {
-    return timeDifferenceForDate(date);
-  }
-
 }

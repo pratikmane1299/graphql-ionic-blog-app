@@ -1,0 +1,10 @@
+<ion-item detail="true">
+  <ion-thumbnail slot="start">
+    <img class="post-thumbnail" [src]="post.thumbnail">
+  </ion-thumbnail>
+  <ion-label>
+    <h3 class="post-title">{{ post.title }}</h3>
+    <p class="post-body">{{ post.content }}</p>
+    <span class="post-datetime">{{ formatDate(post.createdAt) }}</span>
+  </ion-label>
+</ion-item>

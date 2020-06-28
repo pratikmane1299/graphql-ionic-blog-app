@@ -20,16 +20,7 @@
 
   <div *ngIf="!loading">
     <ion-list lines="none">
-      <ion-item *ngFor="let post of feed" detail="true">
-        <ion-thumbnail slot="start">
-          <img class="post-thumbnail" [src]="post.thumbnail">
-        </ion-thumbnail>
-        <ion-label>
-          <h3 class="post-title">{{ post.title }}</h3>
-          <p class="post-body">{{ post.content }}</p>
-          <span class="post-datetime">{{ formatDate(post.createdAt) }}</span>
-        </ion-label>
-      </ion-item>
+      <app-post-item *ngFor="let post of feed" [post]="post"></app-post-item>
     </ion-list>
   </div>
 
