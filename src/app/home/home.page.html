@@ -18,7 +18,7 @@
     </ion-toolbar>
   </ion-header> -->
 
-  <div *ngIf="!loading;else skeleton">
+  <div *ngIf="!loading">
     <ion-list lines="none">
       <ion-item *ngFor="let post of feed" detail="true">
         <ion-thumbnail slot="start">
@@ -30,29 +30,30 @@
           <span class="post-datetime">{{ formatDate(post.createdAt) }}</span>
         </ion-label>
       </ion-item>
-
     </ion-list>
   </div>
 
-  <ng-template #skeleton>
-    <ion-list>
-      <ion-item *ngFor="let i of [1,2,3,4,5,6,7,8,9,10]" detail="true">
-        <ion-thumbnail slot="start">
-          <ion-skeleton-text class="post-thumbnail" animated></ion-skeleton-text>
-        </ion-thumbnail>
-        <ion-label>
-          <h3 class="post-title">
-            <ion-skeleton-text animated style="width: 60%;"></ion-skeleton-text>
-          </h3>
-          <p class="post-body">
-            <ion-skeleton-text animated style="width: 95%;"></ion-skeleton-text>
-          </p>
-          <span class="post-datetime">
-            <ion-skeleton-text animated style="width: 40%;"></ion-skeleton-text>
-          </span>
-        </ion-label>
-      </ion-item>
-    </ion-list>
-  </ng-template>
-  
+  <ion-list *ngIf="loading">
+    <ion-item *ngFor="let i of [1,2,3,4,5,6,7,8,9,10]" detail="true">
+      <ion-thumbnail slot="start">
+        <ion-skeleton-text class="post-thumbnail" animated></ion-skeleton-text>
+      </ion-thumbnail>
+      <ion-label>
+        <h3 class="post-title">
+          <ion-skeleton-text animated style="width: 60%;"></ion-skeleton-text>
+        </h3>
+        <p class="post-body">
+          <ion-skeleton-text animated style="width: 95%;"></ion-skeleton-text>
+        </p>
+        <span class="post-datetime">
+          <ion-skeleton-text animated style="width: 40%;"></ion-skeleton-text>
+        </span>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+  <ion-infinite-scroll threshold="50px" (ionInfinite)="fetchMoreFeed($event)">
+    <ion-infinite-scroll-content
+      loadingSpinner="bubbles">
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
 </ion-content>

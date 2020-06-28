@@ -2,18 +2,18 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 
-import { Apollo } from 'apollo-angular';
+import { Apollo, QueryRef } from 'apollo-angular';
 import gql from 'graphql-tag';
 
 import { timeDifferenceForDate } from './../utils/util';
 
 const userFeedQuery = gql`
-  query posts {
-    posts {
-      id
-      title
-      content
-      thumbnail
+  query feed($offset: Int, $limit: Int) {
+    feed(offset: $offset, limit: $limit) {
+      id,
+      title,
+      content,
+      thumbnail,
       createdAt
     }
   }
@@ -26,18 +26,17 @@ const userFeedQuery = gql`
 })
 export class HomePage implements OnInit, OnDestroy {
 
-  feed: [] = [];
+  feed: any[];
 
   loading = false;
   querySubscription: Subscription;
+  feedQuery: QueryRef<any>;
+  limit = 8;
+  offset = 0;
 
   constructor(private apollo: Apollo, private router: Router) { }
 
   ngOnInit() {
-    // this.loadFeed();
-  }
-
-  ionViewWillEnter() {
     this.loadFeed();
   }
 
@@ -53,14 +52,47 @@ export class HomePage implements OnInit, OnDestroy {
 
   loadFeed() {
     this.loading = true;
-    this.querySubscription = this.apollo.watchQuery({
-      query: userFeedQuery
-    })
+    this.feedQuery = this.apollo.watchQuery<any>({
+      query: userFeedQuery,
+      variables: {
+        offset: this.offset,
+        limit: this.limit
+      },
+    });
+
+    this.feedQuery
       .valueChanges
       .subscribe(({ data, loading }) => {
-        this.feed = data['posts'];
+        this.feed = data.feed;
         this.loading = loading;
       });
+  }
+
+  async fetchMoreFeed(event) {
+    try {
+      await this.feedQuery.fetchMore({
+        variables: {
+          offset: this.feed.length,
+          limit: this.limit
+        },
+        updateQuery: (prev, { fetchMoreResult }) => {
+          event.target.complete();
+          if (!fetchMoreResult) {
+            event.target.disabled = true;
+            return prev;
+          }
+
+          const mergedFeed = {...prev};
+          mergedFeed.feed = [
+            ...prev.feed, ...fetchMoreResult.feed
+          ];
+
+          return mergedFeed;
+        }
+      });
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   formatDate(date: string) {

@@ -17,12 +17,12 @@ const addNewPostMutation = gql`
 `;
 
 const userFeedQuery = gql`
-  query posts {
-    posts {
-      id
-      title
-      content
-      thumbnail
+  query feed($offset: Int, $limit: Int) {
+    feed(offset: $offset, limit: $limit) {
+      id,
+      title,
+      content,
+      thumbnail,
       createdAt
     }
   }
@@ -52,13 +52,21 @@ export class AddPostPage implements OnInit {
         thumbnail: post.thumbnail
       }, update: (cache, { data }) => {
         const existingFeed = cache.readQuery({
-          query: userFeedQuery
+          query: userFeedQuery,
+          variables: {
+            limit: 8,
+            offset: 0
+          }
         });
         const newPost = data['createPost'];
         cache.writeQuery({
           query: userFeedQuery,
+          variables: {
+            limit: 8,
+            offset: 0
+          },
           data: {
-            posts: [ newPost, ...existingFeed['posts'] ]
+            feed: [ newPost, ...existingFeed['feed'] ]
           }
         });
       }
