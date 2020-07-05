@@ -29,13 +29,7 @@
         </div>
       </div>
       <div class="post-body">
-        <ion-skeleton-text class="skeleton-post-content" animated></ion-skeleton-text>
-        <ion-skeleton-text class="skeleton-post-content" animated></ion-skeleton-text>
-        <ion-skeleton-text class="skeleton-post-content" animated></ion-skeleton-text>
-        <ion-skeleton-text class="skeleton-post-content" animated></ion-skeleton-text>
-        <ion-skeleton-text class="skeleton-post-content" animated></ion-skeleton-text>
-        <ion-skeleton-text class="skeleton-post-content" animated></ion-skeleton-text>
-        <ion-skeleton-text class="skeleton-post-content" animated></ion-skeleton-text>
+        <ion-skeleton-text *ngFor="let i of [1,2,3,4,5,6]" class="skeleton-post-content" animated></ion-skeleton-text>
       </div>
     </div>
   </div>
