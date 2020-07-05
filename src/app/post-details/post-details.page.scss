@@ -1,0 +1,126 @@
+ion-toolbar {
+    --background: transparent;
+    --ion-color-base: transparent !important;
+}
+
+.header-md::after {
+    background-image: none;
+}
+
+.header-ios ion-toolbar:last-child {
+    --border-width: 0;
+}
+
+.main-wrapper {
+    margin: 0;
+
+    .img {
+        width: 100%;
+        height: 20rem;
+    }
+
+    .post-content {
+        padding: 0.25rem 1rem 0 1rem;
+
+        .post-header {
+
+            .post-title {
+                margin: 0.5rem 0;
+                font-size: 23px;
+                font-weight: 600;
+                color: #41484c;
+            }
+
+            .author-inline {
+                display: flex;
+                position: relative;
+
+                .avatar {
+                    position: relative;
+                    width: 50px;
+                    height: calc(50px * 1.1);
+    
+                    img {
+                        width: 50px;
+                        height: 50px;
+                        border-radius: 50%;
+                    }
+                }
+
+                .author-info {
+                    flex-direction: column;
+                    margin: 0 0.7rem;
+
+                    .name {
+                        font-size: 1.3rem;
+                        font-weight: 400;
+                        color: #41484c;
+                        letter-spacing: 0.05rem;
+                    }
+
+                    .date-wrapper {
+                        display: flex;
+                        align-content: center;
+                        margin-top: 0.2rem;
+                        font-size: 1.1rem;
+                        color: var(--ion-color-medium-tint);
+        
+                        .clock-icon {
+                            margin-right: 0.5rem;
+                        }
+                    }
+                }
+            }
+        }
+        .post-body {
+            margin-top: 1.5rem;
+            padding: 0.5rem 0;
+
+            p {
+                margin: 0;
+                font-size: 20px;
+                font-weight: 500;
+                color: var(--ion-color-medium);
+                letter-spacing: 0.05rem;
+            }
+        }
+    }
+}
+
+.skeleton-post-title {
+    height: 1.26rem;
+}
+
+.skeleton-img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+}
+
+.skeleton-author-info {
+    flex-direction: column;
+    margin: 0 0.7rem;
+    width: 100%;
+}
+
+.skeleton-author-name,.skeleton-date-wrapper  {
+    height: 0.7rem;
+}
+
+.skeleton-author-name {
+    ion-skeleton-text {
+        width: 75%;
+    }
+}
+
+.skeleton-date-wrapper {
+    ion-skeleton-text {
+        margin-top: 0.9rem;
+        width: 50%;
+    }
+}
+
+.skeleton-post-content {
+    height: 16px;
+    margin-top: 0.7rem;
+}
