@@ -1,12 +1,12 @@
 <ion-header>
-  <ion-toolbar>
+  <ion-toolbar [class.show-background]="showToolbar">
     <ion-buttons>
       <ion-back-button defaultHref="/home"></ion-back-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-<ion-content class="ion-no-padding">
+<ion-content class="ion-no-padding" fullscreen="true">
   <div *ngIf="loading; else postDetails" class="main-wrapper">
     <ion-skeleton-text class="img" animated></ion-skeleton-text>
     <div class="post-content">

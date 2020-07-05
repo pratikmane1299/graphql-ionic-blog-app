@@ -12,6 +12,7 @@ import { getPostById } from './../graphql/queries';
 export class PostDetailsPage implements OnInit {
   post: any;
   loading = false;
+  showToolbar = false;
 
   constructor(
     private activatedRoute: ActivatedRoute,
