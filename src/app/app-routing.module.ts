@@ -5,7 +5,16 @@ import { AuthGuard } from './guards/auth.guard';
 const routes: Routes = [
   {
     path: 'home',
-    loadChildren: () => import('./home/home.module').then( m => m.HomePageModule),
+    children: [
+      {
+        path: '',
+        loadChildren: () => import('./home/home.module').then( m => m.HomePageModule)
+      },
+      {
+        path: ':postId',
+        loadChildren: () => import('./post-details/post-details.module').then( m => m.PostDetailsPageModule)
+      }
+    ],
     canActivate: [AuthGuard]
   },
   {
@@ -25,8 +34,7 @@ const routes: Routes = [
     path: '',
     redirectTo: 'home',
     pathMatch: 'full'
-  },
-
+  }
 ];
 
 @NgModule({

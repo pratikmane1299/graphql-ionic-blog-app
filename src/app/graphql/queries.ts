@@ -11,3 +11,20 @@ export const userFeedQuery = gql`
     }
   }
 `;
+
+export const getPostById = gql`
+  query getPost($id: ID!) {
+    post(id: $id) {
+      id,
+      title,
+      content,
+      thumbnail,
+      createdAt
+      author {
+        username
+        avatar_url
+      }
+    }
+  }
+`;
+

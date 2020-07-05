@@ -1,0 +1,68 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons>
+      <ion-back-button defaultHref="/home"></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-no-padding">
+  <div *ngIf="loading; else postDetails" class="main-wrapper">
+    <ion-skeleton-text class="img" animated></ion-skeleton-text>
+    <div class="post-content">
+      <div class="post-header">
+        <h3 class="skeleton-post-title">
+          <ion-skeleton-text animated></ion-skeleton-text>
+        </h3>
+        <div class="author-inline">
+          <div class="avatar">
+            <ion-skeleton-text class="skeleton-img" animated></ion-skeleton-text>
+          </div>
+          <div class="skeleton-author-info">
+            <span class="skeleton-author-name">
+              <ion-skeleton-text animated></ion-skeleton-text>
+            </span>
+            <span class="skeleton-date-wrapper">
+              <ion-skeleton-text animated></ion-skeleton-text>
+            </span>
+          </div>
+        </div>
+      </div>
+      <div class="post-body">
+        <ion-skeleton-text class="skeleton-post-content" animated></ion-skeleton-text>
+        <ion-skeleton-text class="skeleton-post-content" animated></ion-skeleton-text>
+        <ion-skeleton-text class="skeleton-post-content" animated></ion-skeleton-text>
+        <ion-skeleton-text class="skeleton-post-content" animated></ion-skeleton-text>
+        <ion-skeleton-text class="skeleton-post-content" animated></ion-skeleton-text>
+        <ion-skeleton-text class="skeleton-post-content" animated></ion-skeleton-text>
+        <ion-skeleton-text class="skeleton-post-content" animated></ion-skeleton-text>
+      </div>
+    </div>
+  </div>
+
+  <ng-template #postDetails>
+    <div class="main-wrapper">
+      <img class="img" [src]="post.thumbnail">
+      <div class="post-content">
+        <div class="post-header">
+          <h3 class="post-title">{{ post.title }}</h3>
+          <div class="author-inline">
+            <div class="avatar">
+              <img [src]="post.author.avatar_url" />
+            </div>
+            <div class="author-info">
+              <span class="name">{{ post.author.username }}</span>
+              <span class="date-wrapper">
+                <ion-icon name="time-outline" class="clock-icon"></ion-icon>
+                <span>{{ post.createdAt | date }}</span>
+              </span>
+            </div>
+          </div>
+        </div>
+        <div class="post-body">
+          <p>{{ post.content }}</p>
+        </div>
+      </div>
+    </div>    
+  </ng-template>
+</ion-content>
