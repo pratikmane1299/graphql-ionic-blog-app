@@ -1,5 +1,4 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 
 import { Apollo, QueryRef } from 'apollo-angular';
@@ -21,14 +20,10 @@ export class HomePage implements OnInit, OnDestroy {
   limit = 8;
   offset = 0;
 
-  constructor(private apollo: Apollo, private router: Router) { }
+  constructor(private apollo: Apollo) { }
 
   ngOnInit() {
     this.loadFeed();
-  }
-
-  goToAddPost() {
-    this.router.navigateByUrl('/add-post');
   }
 
   ngOnDestroy() {
