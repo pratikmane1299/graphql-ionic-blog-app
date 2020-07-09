@@ -26,6 +26,10 @@ const routes: Routes = [
         loadChildren: () => import('./../add-post/add-post.module').then( m => m.AddPostPageModule),
       },
       {
+        path: 'favourites',
+        loadChildren: () => import('./../favourites/favourites.module').then( m => m.FavouritesPageModule)
+      },
+      {
         path: '',
         redirectTo: '/tabs/home',
         pathMatch: 'full'
