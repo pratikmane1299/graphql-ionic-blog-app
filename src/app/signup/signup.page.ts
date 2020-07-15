@@ -38,7 +38,7 @@ export class SignupPage implements OnInit, OnDestroy {
     await this.showLoading();
     this.signUpSubscription = this.authService.signUp(signUpForm.form.value).subscribe(async res => {
       await this.loadingController.dismiss();
-      this.router.navigateByUrl('/home');
+      this.router.navigateByUrl('/tabs/home');
     });
   }
 

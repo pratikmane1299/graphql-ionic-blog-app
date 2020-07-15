@@ -1,10 +1,10 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 
 import { LoadingController } from '@ionic/angular';
 
 import { AuthService } from '../services/auth.service';
-import { Subscription } from 'rxjs';
 
 
 @Component({
@@ -36,8 +36,7 @@ export class LoginPage implements OnInit, OnDestroy {
     await this.showLoading();
     this.loginSubscription = this.authService.login(loginForm.form.value).subscribe(async res => {
       await this.loadingController.dismiss();
-      console.log(res);
-      this.router.navigateByUrl('/home');
+      this.router.navigateByUrl('/tabs/home');
     });
   }
 
