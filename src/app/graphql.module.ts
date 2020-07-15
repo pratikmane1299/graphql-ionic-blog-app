@@ -11,8 +11,8 @@ const uri = 'http://localhost:3000/graphql'; // <-- add the URL of the GraphQL s
 export function createApollo(httpLink: HttpLink, storage: Storage) {
 
   let token;
-  storage.get('loggedInUser').then(jwtToken => {
-    token = jwtToken;
+  storage.get('loggedInUser').then(user => {
+    token = user.token;
   });
 
   const auth = setContext((operation, context) => ({
