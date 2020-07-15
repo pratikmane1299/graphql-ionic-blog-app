@@ -14,10 +14,11 @@ interface AuthInput {
   password: string;
 }
 
-interface SignUpResponse {
-  signUp: {
-    token: string
-  };
+interface AuthResponse {
+  id: string;
+  username: string;
+  avatar_url: string;
+  token: string;
 }
 
 @Injectable({
@@ -25,7 +26,7 @@ interface SignUpResponse {
 })
 export class AuthService {
 
-  tokenSubject = new BehaviorSubject<string>(null);
+  userSubject = new BehaviorSubject<AuthResponse>(null);
   token$;
 
   constructor(
@@ -37,9 +38,9 @@ export class AuthService {
       switchMap(() => {
         return from(this.storage.get('loggedInUser'));
       }),
-      map(token => {
-        if (token) {
-          this.tokenSubject.next(token);
+      map(user => {
+        if (user) {
+          this.userSubject.next(user);
           return true;
         } else {
           return false;
@@ -48,8 +49,8 @@ export class AuthService {
     );
   }
 
-  get token(): string {
-    return this.tokenSubject.value;
+  get user(): AuthResponse {
+    return this.userSubject.value;
   }
 
   signUp(data: AuthInput) {
@@ -63,11 +64,11 @@ export class AuthService {
     .pipe(
       take(1),
       map(({ data }) => {
-        return data['signUp'].token;
+        return data['signUp'];
       }),
-      switchMap(token => {
-        this.tokenSubject.next(token);
-        return from(this.storage.set('loggedInUser', token));
+      switchMap(user => {
+        this.userSubject.next(user);
+        return from(this.storage.set('loggedInUser', user));
       })
     );
   }
@@ -83,11 +84,11 @@ export class AuthService {
     .pipe(
       take(1),
       map(({ data }) => {
-        return data['login'].token;
+        return data['login'];
       }),
-      switchMap(token => {
-        this.tokenSubject.next(token);
-        return from(this.storage.set('loggedInUser', token));
+      switchMap(user => {
+        this.userSubject.next(user);
+        return from(this.storage.set('loggedInUser', user));
       })
     );
   }
