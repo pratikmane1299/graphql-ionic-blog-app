@@ -49,8 +49,8 @@ export class AuthService {
     );
   }
 
-  get user(): AuthResponse {
-    return this.userSubject.value;
+  getUser() {
+    return this.userSubject.asObservable();
   }
 
   signUp(data: AuthInput) {
