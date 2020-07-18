@@ -12,6 +12,20 @@ export const userFeedQuery = gql`
   }
 `;
 
+export const getFavouritePosts = gql`
+  {
+    me {
+      favourite_posts {
+        id,
+        title,
+        content,
+        thumbnail,
+        createdAt
+      }
+    }
+  }
+`;
+
 export const getPostById = gql`
   query getPost($id: ID!) {
     post(id: $id) {
