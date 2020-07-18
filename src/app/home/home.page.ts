@@ -4,6 +4,7 @@ import { Subscription } from 'rxjs';
 import { Apollo, QueryRef } from 'apollo-angular';
 
 import { userFeedQuery } from './../graphql/queries';
+import { addToFavourites } from './../graphql/mutations';
 
 @Component({
   selector: 'app-home',
@@ -75,5 +76,16 @@ export class HomePage implements OnInit, OnDestroy {
     } catch (error) {
       console.log(error);
     }
+  }
+
+  addToFavourites(post) {
+    this.apollo.mutate({
+      mutation: addToFavourites,
+      variables: {
+        postId: post.id
+      }
+    }).subscribe(({ data }) => {
+      console.log(data);
+    });
   }
 }

@@ -34,3 +34,15 @@ export const loginMutation = gql`
   }
 `;
 
+export const addToFavourites = gql`
+mutation addToFavourites($postId: ID!) {
+  addPostToFavourites(postId: $postId) {
+    id,
+    title,
+    content, 
+    thumbnail,
+    createdAt
+  }
+}
+`;
+
