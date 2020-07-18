@@ -39,7 +39,7 @@ mutation addToFavourites($postId: ID!) {
   addPostToFavourites(postId: $postId) {
     id,
     title,
-    content, 
+    content,
     thumbnail,
     createdAt
   }
