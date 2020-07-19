@@ -14,7 +14,7 @@
   </ion-header> -->
 
   <div *ngIf="!loading">
-    <ion-list lines="none">
+    <ion-list #ionList lines="none">
       <ion-item-sliding *ngFor="let post of feed">
         <app-post-item [post]="post"></app-post-item>
         <ion-item-options side="end">

@@ -1,10 +1,11 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { Subscription } from 'rxjs';
 
 import { Apollo, QueryRef } from 'apollo-angular';
 
 import { userFeedQuery, getFavouritePosts } from './../graphql/queries';
 import { addToFavourites } from './../graphql/mutations';
+import { IonItemSliding, IonList } from '@ionic/angular';
 
 @Component({
   selector: 'app-home',
@@ -20,6 +21,7 @@ export class HomePage implements OnInit, OnDestroy {
   feedQuery: QueryRef<any>;
   limit = 8;
   offset = 0;
+  @ViewChild('ionList') ionList: IonList;
 
   constructor(private apollo: Apollo) { }
 
@@ -78,7 +80,8 @@ export class HomePage implements OnInit, OnDestroy {
     }
   }
 
-  addToFavourites(post) {
+  async addToFavourites(post) {
+    await this.ionList.closeSlidingItems();
     this.apollo.mutate({
       mutation: addToFavourites,
       variables: {
