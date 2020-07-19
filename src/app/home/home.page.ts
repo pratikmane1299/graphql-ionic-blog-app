@@ -3,7 +3,7 @@ import { Subscription } from 'rxjs';
 
 import { Apollo, QueryRef } from 'apollo-angular';
 
-import { userFeedQuery } from './../graphql/queries';
+import { userFeedQuery, getFavouritePosts } from './../graphql/queries';
 import { addToFavourites } from './../graphql/mutations';
 
 @Component({
@@ -83,6 +83,28 @@ export class HomePage implements OnInit, OnDestroy {
       mutation: addToFavourites,
       variables: {
         postId: post.id
+      },
+      update: (cache , { data }) => {
+        const favouritePost = data['addPostToFavourites'];
+        try {
+          const res: any = cache.readQuery({
+            query: getFavouritePosts,
+          });
+
+          cache.writeQuery({
+            query: getFavouritePosts,
+            data: {
+              me: {
+                favourite_posts: [
+                  favouritePost,
+                  ...res.me.favourite_posts
+                ]
+              }
+            }
+          });
+        } catch (error) {
+          console.log(error);
+        }
       }
     }).subscribe(({ data }) => {
       console.log(data);
