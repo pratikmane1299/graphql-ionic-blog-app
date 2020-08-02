@@ -12,6 +12,7 @@ import { AuthService } from '../services/auth.service';
 })
 export class FavouritesPage implements OnInit, OnDestroy {
 
+  loading: boolean;
   favouritePosts: [] = [];
   favouritesRef: QueryRef<any>;
   querySubscription: Subscription;
@@ -24,6 +25,7 @@ export class FavouritesPage implements OnInit, OnDestroy {
   }
 
   getFavouritePosts() {
+    this.loading = true;
     this.favouritesRef = this.apollo.watchQuery<any>({
       query: getFavouritePosts,
       variables: {
@@ -33,7 +35,8 @@ export class FavouritesPage implements OnInit, OnDestroy {
     });
 
     this.querySubscription = this.favouritesRef
-    .valueChanges.subscribe(({ data }) => {
+    .valueChanges.subscribe(({ data, loading }) => {
+      this.loading = loading;
       this.favouritePosts = data.me.favourite_posts;
     });
   }
