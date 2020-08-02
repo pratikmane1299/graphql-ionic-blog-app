@@ -5,6 +5,7 @@ import { Apollo, QueryRef } from 'apollo-angular';
 
 import { userFeedQuery, getFavouritePosts } from './../graphql/queries';
 import { addToFavourites } from './../graphql/mutations';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -24,7 +25,8 @@ export class HomePage implements OnInit, OnDestroy {
 
   constructor(
     private apollo: Apollo,
-    private toastController: ToastController
+    private toastController: ToastController,
+    private router: Router
   ) { }
 
   ngOnInit() {
@@ -53,6 +55,10 @@ export class HomePage implements OnInit, OnDestroy {
         this.feed = data.feed;
         this.loading = loading;
       });
+  }
+
+  goToDetails(postId) {
+    this.router.navigate(['/tabs/home', postId]);
   }
 
   async fetchMoreFeed(event) {

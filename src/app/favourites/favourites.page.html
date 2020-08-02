@@ -9,7 +9,7 @@
   <app-post-skeleton *ngIf="loading"></app-post-skeleton>
 
   <ion-list lines="none" *ngIf="!loading">
-    <app-post-item *ngFor="let post of favouritePosts" [post]="post"></app-post-item>
+    <app-post-item *ngFor="let post of favouritePosts" [post]="post" (onPostClick)="goToDetails($event)"></app-post-item>
   </ion-list>
   <ion-infinite-scroll threshold="150px" (ionInfinite)="fetchMore($event)">
     <ion-infinite-scroll-content>

@@ -4,6 +4,7 @@ import { Apollo, QueryRef } from 'apollo-angular';
 
 import { getFavouritePosts } from './../graphql/queries';
 import { AuthService } from '../services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-favourites',
@@ -18,7 +19,12 @@ export class FavouritesPage implements OnInit, OnDestroy {
   querySubscription: Subscription;
   limit = 8;
   offset = 0;
-  constructor(private apollo: Apollo, private authService: AuthService) { }
+
+  constructor(
+    private apollo: Apollo,
+    private authService: AuthService,
+    private router: Router
+  ) { }
 
   ngOnInit() {
     this.getFavouritePosts();
@@ -39,6 +45,10 @@ export class FavouritesPage implements OnInit, OnDestroy {
       this.loading = loading;
       this.favouritePosts = data.me.favourite_posts;
     });
+  }
+
+  goToDetails(postId) {
+    this.router.navigate(['/tabs/favourites', postId]);
   }
 
   async fetchMore(event) {

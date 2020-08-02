@@ -1,4 +1,4 @@
-<ion-item [routerLink]="['/tabs/home', post.id]" detail="true">
+<ion-item detail="true" (click)="onClick(post.id)">
   <ion-thumbnail slot="start">
     <img class="post-thumbnail" [src]="post.thumbnail">
   </ion-thumbnail>

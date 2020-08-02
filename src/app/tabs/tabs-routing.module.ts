@@ -27,7 +27,16 @@ const routes: Routes = [
       },
       {
         path: 'favourites',
-        loadChildren: () => import('./../favourites/favourites.module').then( m => m.FavouritesPageModule)
+        children: [
+          {
+            path: '',
+            loadChildren: () => import('./../favourites/favourites.module').then( m => m.FavouritesPageModule)
+          },
+          {
+            path: ':postId',
+            loadChildren: () => import('./../post-details/post-details.module').then( m => m.PostDetailsPageModule)
+          },
+        ]
       },
       {
         path: '',

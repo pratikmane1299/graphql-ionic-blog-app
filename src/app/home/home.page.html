@@ -18,7 +18,7 @@
   <div *ngIf="!loading">
     <ion-list #ionList lines="none">
       <ion-item-sliding *ngFor="let post of feed">
-        <app-post-item [post]="post"></app-post-item>
+        <app-post-item [post]="post" (onPostClick)="goToDetails($event)"></app-post-item>
         <ion-item-options side="end">
           <ion-item-option (click)="addToFavourites(post)">
             <ion-icon slot="icon-only" name="star-outline"></ion-icon>
