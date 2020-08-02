@@ -8,6 +8,7 @@ import { FavouritesPageRoutingModule } from './favourites-routing.module';
 
 import { FavouritesPage } from './favourites.page';
 import { PostItemComponent } from '../components/post-item/post-item.component';
+import { PostSkeletonComponent } from '../components/post-skeleton/post-skeleton.component';
 
 @NgModule({
   imports: [
@@ -16,6 +17,6 @@ import { PostItemComponent } from '../components/post-item/post-item.component';
     IonicModule,
     FavouritesPageRoutingModule
   ],
-  declarations: [FavouritesPage, PostItemComponent]
+  declarations: [FavouritesPage, PostItemComponent, PostSkeletonComponent]
 })
 export class FavouritesPageModule {}

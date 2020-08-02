@@ -7,7 +7,7 @@ import { IonicModule } from '@ionic/angular';
 import { HomePageRoutingModule } from './home-routing.module';
 import { HomePage } from './home.page';
 import { PostItemComponent } from '../components/post-item/post-item.component';
-
+import { PostSkeletonComponent } from '../components/post-skeleton/post-skeleton.component';
 
 @NgModule({
   imports: [
@@ -17,6 +17,6 @@ import { PostItemComponent } from '../components/post-item/post-item.component';
     HomePageRoutingModule,
     ReactiveFormsModule
   ],
-  declarations: [HomePage, PostItemComponent]
+  declarations: [HomePage, PostItemComponent, PostSkeletonComponent]
 })
 export class HomePageModule {}
