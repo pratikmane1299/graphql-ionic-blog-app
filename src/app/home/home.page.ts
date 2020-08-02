@@ -1,11 +1,10 @@
 import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { Subscription } from 'rxjs';
-
+import { IonList, ToastController } from '@ionic/angular';
 import { Apollo, QueryRef } from 'apollo-angular';
 
 import { userFeedQuery, getFavouritePosts } from './../graphql/queries';
 import { addToFavourites } from './../graphql/mutations';
-import { IonItemSliding, IonList } from '@ionic/angular';
 
 @Component({
   selector: 'app-home',
@@ -23,7 +22,10 @@ export class HomePage implements OnInit, OnDestroy {
   offset = 0;
   @ViewChild('ionList') ionList: IonList;
 
-  constructor(private apollo: Apollo) { }
+  constructor(
+    private apollo: Apollo,
+    private toastController: ToastController
+  ) { }
 
   ngOnInit() {
     this.loadFeed();
@@ -92,10 +94,18 @@ export class HomePage implements OnInit, OnDestroy {
         try {
           const res: any = cache.readQuery({
             query: getFavouritePosts,
+            variables: {
+              limit: 8,
+              offset: 0
+            }
           });
 
           cache.writeQuery({
             query: getFavouritePosts,
+            variables: {
+              limit: 8,
+              offset: 0
+            },
             data: {
               me: {
                 favourite_posts: [
@@ -109,8 +119,17 @@ export class HomePage implements OnInit, OnDestroy {
           console.log(error);
         }
       }
-    }).subscribe(({ data }) => {
-      console.log(data);
+    }).subscribe(async ({ data }) => {
+      await this.showToast('Post added to favourites');
     });
+  }
+
+  async showToast(message: string) {
+    const toastEl = await this.toastController.create({
+      message,
+      duration: 1500,
+    });
+
+    toastEl.present();
   }
 }

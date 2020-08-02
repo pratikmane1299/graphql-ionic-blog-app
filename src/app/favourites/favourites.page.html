@@ -8,4 +8,8 @@
   <ion-list lines="none">
     <app-post-item *ngFor="let post of favouritePosts" [post]="post"></app-post-item>
   </ion-list>
+  <ion-infinite-scroll threshold="150px" (ionInfinite)="fetchMore($event)">
+    <ion-infinite-scroll-content>
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
 </ion-content>

@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { Apollo } from 'apollo-angular';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Subscription } from 'rxjs';
+import { Apollo, QueryRef } from 'apollo-angular';
 
 import { getFavouritePosts } from './../graphql/queries';
 import { AuthService } from '../services/auth.service';
@@ -9,9 +10,13 @@ import { AuthService } from '../services/auth.service';
   templateUrl: './favourites.page.html',
   styleUrls: ['./favourites.page.scss'],
 })
-export class FavouritesPage implements OnInit {
+export class FavouritesPage implements OnInit, OnDestroy {
 
   favouritePosts: [] = [];
+  favouritesRef: QueryRef<any>;
+  querySubscription: Subscription;
+  limit = 8;
+  offset = 0;
   constructor(private apollo: Apollo, private authService: AuthService) { }
 
   ngOnInit() {
@@ -19,11 +24,51 @@ export class FavouritesPage implements OnInit {
   }
 
   getFavouritePosts() {
-    this.apollo.watchQuery<any>({
+    this.favouritesRef = this.apollo.watchQuery<any>({
       query: getFavouritePosts,
-    }).valueChanges.subscribe(({ data }) => {
+      variables: {
+        offset: this.offset,
+        limit: this.limit
+      },
+    });
+
+    this.querySubscription = this.favouritesRef
+    .valueChanges.subscribe(({ data }) => {
       this.favouritePosts = data.me.favourite_posts;
     });
+  }
+
+  async fetchMore(event) {
+    try {
+      await this.favouritesRef.fetchMore({
+        variables: {
+          offset: this.favouritePosts.length,
+          limit: this.limit
+        },
+        updateQuery: (prev, { fetchMoreResult }) => {
+          event.target.complete();
+          if (!fetchMoreResult) {
+            event.target.disabled = true;
+            return prev;
+          }
+
+          const mergedFavourites = {...prev};
+          mergedFavourites.me.favourite_posts = [
+            ...prev.me.favourite_posts, ...fetchMoreResult.me.favourite_posts
+          ];
+
+          return mergedFavourites;
+        }
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  ngOnDestroy() {
+    if (this.querySubscription) {
+      this.querySubscription.unsubscribe();
+    }
   }
 
 }

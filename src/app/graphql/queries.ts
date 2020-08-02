@@ -13,9 +13,9 @@ export const userFeedQuery = gql`
 `;
 
 export const getFavouritePosts = gql`
-  {
+  query getFavouritePosts($offset: Int, $limit: Int){
     me {
-      favourite_posts {
+      favourite_posts(offset: $offset, limit: $limit) {
         id,
         title,
         content,
