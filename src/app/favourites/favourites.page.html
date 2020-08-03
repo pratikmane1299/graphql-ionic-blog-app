@@ -12,7 +12,7 @@
     <ion-item-sliding *ngFor="let post of favouritePosts">
       <app-post-item [post]="post" (onPostClick)="goToDetails($event)"></app-post-item>
       <ion-item-options side="end">
-        <ion-item-option (click)="removePostFromFavourites(post)">
+        <ion-item-option (click)="removePostFromFavourites(post)" color="danger">
           <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
         </ion-item-option>
       </ion-item-options>
