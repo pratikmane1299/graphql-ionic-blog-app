@@ -51,7 +51,7 @@ export class AddPostPage implements OnInit {
     })
       .subscribe(data => {
         this.isLoading = false;
-        this.router.navigateByUrl('/home');
+        this.router.navigateByUrl('/tabs/home');
       });
   }
 
