@@ -1,10 +1,12 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { ToastController } from '@ionic/angular';
 import { Apollo, QueryRef } from 'apollo-angular';
 
 import { getFavouritePosts } from './../graphql/queries';
-import { AuthService } from '../services/auth.service';
-import { Router } from '@angular/router';
+import { removePostFromFavourites } from './../graphql/mutations';
+import { async } from '@angular/core/testing';
 
 @Component({
   selector: 'app-favourites',
@@ -22,8 +24,8 @@ export class FavouritesPage implements OnInit, OnDestroy {
 
   constructor(
     private apollo: Apollo,
-    private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private toastController: ToastController
   ) { }
 
   ngOnInit() {
@@ -76,6 +78,51 @@ export class FavouritesPage implements OnInit, OnDestroy {
     } catch (error) {
       console.log(error);
     }
+  }
+
+  removePostFromFavourites(post) {
+    this.apollo.mutate({
+      mutation: removePostFromFavourites,
+      variables: {
+        postId: post.id
+      },
+      update: (cache, { data }) => {
+        const deletedPostId = data['removePostFromFavourites'];
+        const res: any = cache.readQuery({
+          query: getFavouritePosts,
+          variables: {
+            limit: 8,
+            offset: 0
+          }
+        });
+
+        const favouritesList: any[] = res.me.favourite_posts;
+
+        cache.writeQuery({
+          query: getFavouritePosts,
+          variables: {
+            limit: 8,
+            offset: 0
+          },
+          data: {
+            me: {
+              favourite_posts: favouritesList.filter(p => p.id !== deletedPostId)
+            }
+          }
+        });
+      }
+    }).subscribe(async () => {
+      await this.showToast('Post removed from favourites');
+    });
+  }
+
+  async showToast(message: string) {
+    const toastEl = await this.toastController.create({
+      message,
+      duration: 1500,
+    });
+
+    toastEl.present();
   }
 
   ngOnDestroy() {

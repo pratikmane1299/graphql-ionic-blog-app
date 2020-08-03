@@ -46,3 +46,8 @@ mutation addToFavourites($postId: ID!) {
 }
 `;
 
+export const removePostFromFavourites = gql`
+  mutation removePostFromFavourites($postId: ID!) {
+    removePostFromFavourites(postId: $postId)
+  }
+`;

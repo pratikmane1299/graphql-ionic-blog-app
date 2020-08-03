@@ -9,7 +9,14 @@
   <app-post-skeleton *ngIf="loading"></app-post-skeleton>
 
   <ion-list lines="none" *ngIf="!loading">
-    <app-post-item *ngFor="let post of favouritePosts" [post]="post" (onPostClick)="goToDetails($event)"></app-post-item>
+    <ion-item-sliding *ngFor="let post of favouritePosts">
+      <app-post-item [post]="post" (onPostClick)="goToDetails($event)"></app-post-item>
+      <ion-item-options side="end">
+        <ion-item-option (click)="removePostFromFavourites(post)">
+          <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
+        </ion-item-option>
+      </ion-item-options>
+    </ion-item-sliding>
   </ion-list>
   <ion-infinite-scroll threshold="150px" (ionInfinite)="fetchMore($event)">
     <ion-infinite-scroll-content>
