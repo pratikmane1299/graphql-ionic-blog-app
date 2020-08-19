@@ -1,0 +1,94 @@
+.container {
+    width: 100%;
+    height: 100%;
+
+    .user-info-wrapper {
+        padding: 0.5rem 1rem;
+        display: flex;
+        justify-content: space-between;
+    
+        .profile-img-wrapper {
+            flex: 1;
+        
+            img {
+                width: 100%;
+                height: 100%;
+                border-radius: 50%;
+            }
+        }
+    
+        .total-count-wrapper, .likes-count-wrapper, .comments-count-wrapper {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            flex: 1;
+            align-items: center;
+    
+            .total-count, .likes-count, .comments-count {
+                font-size: 1.2rem;
+                font-weight: bold;
+            }
+    
+            .total-count-label, .likes-count-label, .comments-count-label {
+                margin: 0;
+                font-size: 0.9rem;
+                font-weight: 600;
+                letter-spacing: 0.025rem;
+                color: var(--ion-color-medium);
+            }
+        }
+    }
+    
+    .edit-profile-btn-wrapper {
+        padding: 0 1rem;
+        margin: 0.5rem 0;
+    
+        ion-button {
+            margin: 0;
+            height: 30px;
+        }
+    }
+    
+    .posts-container {
+        
+        .my-posts-label {
+            display: block;
+            font-size: 1.29rem;
+            font-weight: 600;
+            padding: 1rem;
+            border-bottom: 1px solid var(--ion-color-medium-tint);
+        }
+    
+        .posts-gallery {
+            display: flex;
+            flex-wrap: wrap;
+    
+            .post-item {
+                
+                flex: 31.75% 0;
+                margin: 0.2rem;
+                //width: 7.9rem;
+                height: 7.9rem;
+    
+                img {
+                    width: 100%;
+                    height: 100%;
+                }
+            }
+        }
+    }
+    
+}
+
+
+ion-list {
+    padding: 0;
+}
+
+.loading {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

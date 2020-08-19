@@ -13,36 +13,40 @@ const routes: Routes = [
         children: [
           {
             path: '',
-            loadChildren: () => import('./../home/home.module').then( m => m.HomePageModule)
+            loadChildren: () => import('./../home/home.module').then(m => m.HomePageModule)
           },
           {
             path: ':postId',
-            loadChildren: () => import('./../post-details/post-details.module').then( m => m.PostDetailsPageModule)
+            loadChildren: () => import('./../post-details/post-details.module').then(m => m.PostDetailsPageModule)
           },
         ]
       },
       {
         path: 'add-post',
-        loadChildren: () => import('./../add-post/add-post.module').then( m => m.AddPostPageModule),
+        loadChildren: () => import('./../add-post/add-post.module').then(m => m.AddPostPageModule),
       },
       {
         path: 'favourites',
         children: [
           {
             path: '',
-            loadChildren: () => import('./../favourites/favourites.module').then( m => m.FavouritesPageModule)
+            loadChildren: () => import('./../favourites/favourites.module').then(m => m.FavouritesPageModule)
           },
           {
             path: ':postId',
-            loadChildren: () => import('./../post-details/post-details.module').then( m => m.PostDetailsPageModule)
+            loadChildren: () => import('./../post-details/post-details.module').then(m => m.PostDetailsPageModule)
           },
         ]
       },
       {
-        path: '',
-        redirectTo: '/tabs/home',
-        pathMatch: 'full'
+        path: 'me',
+        loadChildren: () => import('./../profile/profile.module').then(p => p.ProfilePageModule)
       },
+      // {
+      //   path: '',
+      //   redirectTo: '/tabs/home',
+      //   pathMatch: 'full'
+      // },
     ]
   },
   {
@@ -56,4 +60,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class TabsPageRoutingModule {}
+export class TabsPageRoutingModule { }

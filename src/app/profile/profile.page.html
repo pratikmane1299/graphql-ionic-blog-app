@@ -1,0 +1,49 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>{{ !loading ? user.username : "Loading..." }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="container" *ngIf="!loading">
+    <div class="user-info-wrapper">
+      <div class="profile-img-wrapper">
+        <img [src]="user.avatar_url" />
+      </div>
+      <div class="total-count-wrapper">
+        <span class="total-count">100</span>
+        <p class="total-count-label">Posts</p>
+      </div>
+  
+      <div class="total-count-wrapper">
+        <span class="total-count">100</span>
+        <p class="total-count-label">Likes</p>
+      </div>
+  
+      <div class="total-count-wrapper">
+        <span class="total-count">100</span>
+        <p class="total-count-label">Comments</p>
+      </div>
+    </div>
+    <div class="edit-profile-btn-wrapper">
+      <ion-button expand="block" fill="outline">edit profile</ion-button>
+    </div>
+    <div class="posts-container">
+      <span class="my-posts-label">My Posts</span>
+      <ion-list>
+        <div class="posts-gallery">
+          <div class="post-item" *ngFor="let post of user.posts">
+            <img class="post-image" [src]="post.thumbnail" />
+          </div>
+        </div>
+      </ion-list>
+      <ion-infinite-scroll threshold="100px" (ionInfinite)="fetchMorePosts($event)">
+        <ion-infinite-scroll-content>
+        </ion-infinite-scroll-content>
+      </ion-infinite-scroll>
+    </div>
+  </div>
+  <div class="loading" *ngIf="loading">
+    <ion-spinner></ion-spinner>
+  </div>
+</ion-content>

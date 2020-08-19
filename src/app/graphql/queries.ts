@@ -42,3 +42,16 @@ export const getPostById = gql`
   }
 `;
 
+export const me = gql`
+  query loggedInUser($offset: Int, $limit: Int) {
+    me {
+      id,
+      username,
+      avatar_url,
+      posts(offset: $offset, limit: $limit) {
+        id,
+        thumbnail,
+      }
+    }
+  }
+`;
