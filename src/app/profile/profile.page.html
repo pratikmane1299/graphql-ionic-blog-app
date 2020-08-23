@@ -11,7 +11,7 @@
         <img [src]="user.avatar_url" />
       </div>
       <div class="total-count-wrapper">
-        <span class="total-count">100</span>
+        <span class="total-count">{{ getCount(user.totalPosts) }}</span>
         <p class="total-count-label">Posts</p>
       </div>
   

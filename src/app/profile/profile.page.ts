@@ -4,6 +4,7 @@ import { Subscription } from 'rxjs';
 import { Apollo, QueryRef } from 'apollo-angular';
 
 import { me } from './../graphql/queries';
+import { formatNumber } from './../utils/util';
 
 @Component({
   selector: 'app-profile',
@@ -64,6 +65,10 @@ export class ProfilePage implements OnInit {
         return mergedPosts;
       }
     });
+  }
+
+  getCount(total: number) {
+    return formatNumber(total);
   }
 
 }

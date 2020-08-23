@@ -51,7 +51,8 @@ export const me = gql`
       posts(offset: $offset, limit: $limit) {
         id,
         thumbnail,
-      }
+      },
+      totalPosts
     }
   }
 `;

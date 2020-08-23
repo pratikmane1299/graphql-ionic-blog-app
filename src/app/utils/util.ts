@@ -31,3 +31,16 @@ export function timeDifferenceForDate(date: string) {
   const updated = new Date(date).getTime();
   return timeDifference(now, updated);
 }
+
+
+export function formatNumber(num) {
+  if (num > 999 && num < 1000000) {
+    return (num / 1000).toFixed(1) + 'K';
+  } else if (num > 1000000 && num < 10000000) {
+    return (num / 1000000).toFixed(1) + 'M';
+  } else if (num > 10000000) {
+    return (num / 10000000).toFixed(1) + 'B';
+  } else if (num < 999) {
+    return num;
+  }
+}
