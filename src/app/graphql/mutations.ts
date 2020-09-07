@@ -51,3 +51,14 @@ export const removePostFromFavourites = gql`
     removePostFromFavourites(postId: $postId)
   }
 `;
+
+export const likeUnlikeMutation = gql`
+  mutation likeUnLikePost($postId: ID!) {
+    likeUnLikePost(postId: $postId) {
+      post {
+        id,
+        likesCount
+      }
+    }
+  }
+`;

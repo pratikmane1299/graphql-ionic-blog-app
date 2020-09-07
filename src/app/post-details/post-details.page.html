@@ -57,6 +57,16 @@
           <p>{{ post.content }}</p>
         </div>
       </div>
+      <div class="likes-comments-container">
+        <div class="likes" (click)="likeUnLikePost(post.id)">
+          <ion-icon name="thumbs-up-outline"></ion-icon>
+          <span class="likes-count">{{ post.likesCount }} Likes</span>
+        </div>
+        <div class="comments">
+          <ion-icon name="chatbubble-outline"></ion-icon>
+          <span class="comments-count">2893 Comments</span>
+        </div>
+      </div>
     </div>    
   </ng-template>
 </ion-content>
