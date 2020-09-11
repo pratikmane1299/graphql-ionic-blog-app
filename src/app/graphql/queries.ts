@@ -34,7 +34,8 @@ export const getPostById = gql`
       content,
       thumbnail,
       createdAt,
-      likesCount
+      likesCount,
+      commentsCount,
       author {
         username
         avatar_url
