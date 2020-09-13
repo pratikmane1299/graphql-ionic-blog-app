@@ -5,5 +5,27 @@
 </ion-header>
 
 <ion-content>
-
+  <div class="comments-container"></div>
+  <div class="comment-input-container">
+    <form #commentForm="ngForm" class="comment-input-form">
+      <input
+        #comment="ngModel"
+        name="comment"
+        id="comment"
+        class="comment-input"
+        type="text"
+        placeholder="Write something..."
+        ngModel
+        required
+      />
+      <ion-button 
+        fill="clear" 
+        size="small" 
+        class="comment-button"
+        [disabled]="!commentForm.form.valid"
+        >
+        Post
+      </ion-button>
+    </form>
+  </div>
 </ion-content>

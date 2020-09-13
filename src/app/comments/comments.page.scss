@@ -1,0 +1,28 @@
+.comment-input-container {
+    border-top: 1px solid #cecece;
+    position: absolute;
+    bottom: 0;
+    height: 49px;
+    width: 100%;
+    
+    .comment-input-form {
+        display: flex;
+        align-items: center;
+        height: 100%;
+
+        .comment-input {
+            flex: 1;
+            outline: none;
+            height: 100%;
+            font-size: 1rem;
+            padding: 0 1rem;
+            border: none;
+            border-right: 0.05rem solid #92949c;
+        }
+    
+        .comment-button {
+            font-size: 1rem;
+            text-transform: capitalize;
+        }
+    }
+}
