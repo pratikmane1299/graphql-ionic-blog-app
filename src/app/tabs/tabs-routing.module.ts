@@ -19,6 +19,10 @@ const routes: Routes = [
             path: ':postId',
             loadChildren: () => import('./../post-details/post-details.module').then(m => m.PostDetailsPageModule)
           },
+          {
+            path: ':postId/comments',
+            loadChildren: () => import('./../comments/comments.module').then(c => c.CommentsPageModule)
+          }
         ]
       },
       {
@@ -36,6 +40,10 @@ const routes: Routes = [
             path: ':postId',
             loadChildren: () => import('./../post-details/post-details.module').then(m => m.PostDetailsPageModule)
           },
+          {
+            path: ':postId/comments',
+            loadChildren: () => import('./../comments/comments.module').then(c => c.CommentsPageModule)
+          }
         ]
       },
       {

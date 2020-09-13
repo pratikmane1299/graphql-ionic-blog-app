@@ -76,4 +76,7 @@ export class PostDetailsPage implements OnInit {
     }).subscribe(() => console.log('liked/Unliked'));
   }
 
+  viewComments() {
+    this.router.navigate(['./comments'], { relativeTo: this.activatedRoute });
+  }
 }

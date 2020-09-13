@@ -62,7 +62,7 @@
           <ion-icon name="thumbs-up-outline"></ion-icon>
           <span class="likes-count">{{ post.likesCount }} Likes</span>
         </div>
-        <div class="comments">
+        <div class="comments" (click)="viewComments()">
           <ion-icon name="chatbubble-outline"></ion-icon>
           <span class="comments-count">{{ post.commentsCount }} Comments</span>
         </div>
