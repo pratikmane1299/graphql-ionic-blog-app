@@ -7,28 +7,16 @@
 <ion-content>
   <div class="comments-container">
     <ion-list lines="none">
-      <div class="comment">
+      <div class="comment" *ngFor="let comment of comments">
         <div>
           <div class="user-avatar">
-            <img src="http://localhost:3000/assets/avatar-person.png" />
+            <img [src]="comment.commentedBy.avatar_url" />
           </div>
         </div>
         <div class="comment-text-container">
-          <span class="comment-username">momo</span>
-          <p class="comment-text">First Comment</p>
-          <span class="comment-date-time">2m</span>
-        </div>
-      </div>
-      <div class="comment">
-        <div>
-          <div class="user-avatar">
-            <img src="http://localhost:3000/assets/avatar-person.png" />
-          </div>
-        </div>
-        <div class="comment-text-container">
-          <span class="comment-username">momo</span>
-          <p class="comment-text">Second comment</p>
-          <span class="comment-date-time">2m</span>
+          <span class="comment-username">{{ comment.commentedBy.username }}</span>
+          <p class="comment-text">{{ comment.text }}</p>
+          <span class="comment-date-time">{{ formatDate(comment.createdAt) }}</span>
         </div>
       </div>
     </ion-list>

@@ -58,3 +58,17 @@ export const me = gql`
     }
   }
 `;
+
+export const getCommentsForPost = gql`
+  query getCommentsForPost($postId: ID!) {
+	  comments (postId: $postId) {
+      id,
+      text,
+      createdAt,
+      commentedBy {
+        username,
+        avatar_url
+      }
+    }
+  }
+`;
