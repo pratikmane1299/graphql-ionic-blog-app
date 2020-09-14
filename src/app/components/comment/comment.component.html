@@ -1,0 +1,12 @@
+<div class="comment">
+  <div>
+    <div class="user-avatar">
+      <img [src]="comment.commentedBy.avatar_url" />
+    </div>
+  </div>
+  <div class="comment-text-container">
+    <span class="comment-username">{{ comment.commentedBy.username }}</span>
+    <p class="comment-text">{{ comment.text }}</p>
+    <span class="comment-date-time">{{ formatDate(comment.createdAt) }}</span>
+  </div>
+</div>

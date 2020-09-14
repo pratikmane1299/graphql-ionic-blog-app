@@ -5,7 +5,6 @@ import { Apollo, QueryRef } from 'apollo-angular';
 
 import { getCommentsForPost, getPostById } from '../graphql/queries';
 import { addComment } from '../graphql/mutations';
-import { timeDifferenceForDate } from '../utils/util';
 
 @Component({
   selector: 'app-comments',
@@ -93,9 +92,4 @@ export class CommentsPage implements OnInit {
         this.commentText = '';
       });
   }
-
-  formatDate(date: string) {
-    return timeDifferenceForDate(date);
-  }
-
 }
