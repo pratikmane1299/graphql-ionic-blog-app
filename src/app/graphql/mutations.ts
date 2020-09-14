@@ -62,3 +62,17 @@ export const likeUnlikeMutation = gql`
     }
   }
 `;
+
+export const addComment = gql`
+  mutation comment($postId: ID!, $comment: String!) {
+    comment(postId: $postId, text: $comment) {
+      id
+      text,
+      createdAt,
+      commentedBy {
+        username,
+        avatar_url
+      }
+    }
+  }
+`;

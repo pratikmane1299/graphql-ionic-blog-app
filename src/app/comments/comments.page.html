@@ -30,7 +30,7 @@
         class="comment-input"
         type="text"
         placeholder="Write something..."
-        ngModel
+        [(ngModel)]="commentText"
         required
       />
       <ion-button 
@@ -38,6 +38,7 @@
         size="small" 
         class="comment-button"
         [disabled]="!commentForm.form.valid"
+        (click)="addComment()"
         >
         Post
       </ion-button>
