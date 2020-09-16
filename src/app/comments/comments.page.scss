@@ -1,6 +1,19 @@
+
+ion-content {
+    overflow: hidden;
+}
+
 .comments-container {
+    position: absolute;
+    width: 100%;
+    top: 0;
+    bottom: 50px;
+
     ion-list {
         padding: 0;
+        height: 100%;
+        overflow-y: scroll;
+        overflow-x: hidden;
     }
 }
 
