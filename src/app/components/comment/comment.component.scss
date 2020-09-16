@@ -14,10 +14,12 @@
 
         .comment-username {
             font-weight: bold;
+            font-size: 0.8rem;
         }
 
         .comment-text {
             margin: 0;
+            word-break: break-word;
         }
 
         .comment-date-time {
