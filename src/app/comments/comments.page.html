@@ -10,7 +10,7 @@
 <ion-content>
   <div class="comments-container">
     <ion-list lines="none">
-      <app-comment [comment]="comment" *ngFor="let comment of comments"></app-comment>
+      <app-comment [comment]="comment" (optionsClick)="showOptions($event)" *ngFor="let comment of comments"></app-comment>
     </ion-list>
   </div>
   <div class="comment-input-container">

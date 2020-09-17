@@ -10,6 +10,6 @@
     <span class="comment-date-time">{{ formatDate(comment.createdAt) }}</span>
   </div>
   <div class="comment-options">
-    <ion-icon name="ellipsis-horizontal-outline"></ion-icon>
+    <ion-icon name="ellipsis-horizontal-outline" (click)="options(comment.id)"></ion-icon>
   </div>
 </div>

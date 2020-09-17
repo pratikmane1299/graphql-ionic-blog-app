@@ -5,6 +5,7 @@ import { Apollo, QueryRef } from 'apollo-angular';
 
 import { getCommentsForPost, getPostById } from '../graphql/queries';
 import { addComment } from '../graphql/mutations';
+import { ActionSheetController } from '@ionic/angular';
 
 @Component({
   selector: 'app-comments',
@@ -21,7 +22,8 @@ export class CommentsPage implements OnInit {
 
   constructor(
     private apollo: Apollo,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private actionSheetController: ActionSheetController
   ) { }
 
   ngOnInit() {
@@ -91,5 +93,28 @@ export class CommentsPage implements OnInit {
       .subscribe(() => {
         this.commentText = '';
       });
+  }
+
+  async showOptions(commentId: string) {
+    await this.showOptionsActionSheet();
+  }
+
+  async showOptionsActionSheet() {
+    const actionSheetEl = await this.actionSheetController.create({
+      header: 'Action',
+      buttons: [{
+        text: 'Delete',
+        icon: 'trash',
+        handler: () => {
+          console.log('Delete Click');
+        }
+      }, {
+        text: 'Cancel',
+        role: 'cancel',
+        icon: 'close'
+      }]
+    })
+
+    await actionSheetEl.present();
   }
 }
