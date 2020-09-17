@@ -8,32 +8,37 @@
 </ion-header>
 
 <ion-content>
-  <div class="comments-container">
-    <ion-list lines="none">
-      <app-comment [comment]="comment" [loggedInUser]="user" (optionsClick)="showOptions($event)" *ngFor="let comment of comments"></app-comment>
-    </ion-list>
+  <div class="loading" *ngIf="loading; else commentsView">
+    <ion-spinner name="crescent"></ion-spinner>
   </div>
-  <div class="comment-input-container">
-    <form #commentForm="ngForm" class="comment-input-form">
-      <input
-        #comment="ngModel"
-        name="comment"
-        id="comment"
-        class="comment-input"
-        type="text"
-        placeholder="Write something..."
-        [(ngModel)]="commentText"
-        required
-      />
-      <ion-button 
-        fill="clear" 
-        size="small" 
-        class="comment-button"
-        [disabled]="!commentForm.form.valid"
-        (click)="addComment()"
-        >
-        Post
-      </ion-button>
-    </form>
-  </div>
+  <ng-template #commentsView>
+    <div class="comments-container">
+      <ion-list lines="none">
+        <app-comment [comment]="comment" [loggedInUser]="user" (optionsClick)="showOptions($event)" *ngFor="let comment of comments"></app-comment>
+      </ion-list>
+    </div>
+    <div class="comment-input-container">
+      <form #commentForm="ngForm" class="comment-input-form">
+        <input
+          #comment="ngModel"
+          name="comment"
+          id="comment"
+          class="comment-input"
+          type="text"
+          placeholder="Write something..."
+          [(ngModel)]="commentText"
+          required
+        />
+        <ion-button 
+          fill="clear" 
+          size="small" 
+          class="comment-button"
+          [disabled]="!commentForm.form.valid"
+          (click)="addComment()"
+          >
+          Post
+        </ion-button>
+      </form>
+    </div>
+  </ng-template>
 </ion-content>
