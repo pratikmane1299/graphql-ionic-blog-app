@@ -5,6 +5,7 @@ import { Apollo, QueryRef } from 'apollo-angular';
 
 import { me } from './../graphql/queries';
 import { formatNumber } from './../utils/util';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-profile',
@@ -20,7 +21,7 @@ export class ProfilePage implements OnInit {
   offset = 0;
   limit = 12;
 
-  constructor(private apollo: Apollo) { }
+  constructor(private apollo: Apollo, private router: Router) { }
 
   ngOnInit() {
     this.fetchProfile();
@@ -69,6 +70,10 @@ export class ProfilePage implements OnInit {
 
   getCount(total: number) {
     return formatNumber(total);
+  }
+
+  goToPostDetails(postId: string) {
+    this.router.navigateByUrl(`/tabs/me/${postId}`)
   }
 
 }

@@ -48,7 +48,20 @@ const routes: Routes = [
       },
       {
         path: 'me',
-        loadChildren: () => import('./../profile/profile.module').then(p => p.ProfilePageModule)
+        children: [
+          {
+            path: '',
+            loadChildren: () => import('./../profile/profile.module').then(p => p.ProfilePageModule),
+          },
+          {
+            path: ':postId',
+            loadChildren: () => import('./../post-details/post-details.module').then(m => m.PostDetailsPageModule)
+          },
+          {
+            path: ':postId/comments',
+            loadChildren: () => import('./../comments/comments.module').then(c => c.CommentsPageModule)
+          }
+        ]
       },
       // {
       //   path: '',

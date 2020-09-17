@@ -32,7 +32,7 @@
       <span class="my-posts-label">My Posts</span>
       <ion-list>
         <div class="posts-gallery">
-          <div class="post-item" *ngFor="let post of user.posts">
+          <div class="post-item" *ngFor="let post of user.posts" (click)="goToPostDetails(post.id)">
             <img class="post-image" [src]="post.thumbnail" />
           </div>
         </div>
