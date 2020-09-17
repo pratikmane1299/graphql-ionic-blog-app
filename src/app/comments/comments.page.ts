@@ -7,6 +7,7 @@ import { ActionSheetController, ToastController } from '@ionic/angular';
 
 import { getCommentsForPost, getPostById } from '../graphql/queries';
 import { addComment, deleteComment } from '../graphql/mutations';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-comments',
@@ -20,17 +21,20 @@ export class CommentsPage implements OnInit {
   loading: boolean;
   commentsQueryRef: QueryRef<any>;
   commentText = '';
+  user: any;
 
   constructor(
     private apollo: Apollo,
     private route: ActivatedRoute,
     private actionSheetController: ActionSheetController,
-    private toastController: ToastController
+    private toastController: ToastController,
+    private authService: AuthService
   ) { }
 
   ngOnInit() {
     this.route.paramMap.subscribe(params => {
       this.postId = params.get('postId');
+      this.user = this.authService.userSubject.value;
       this.getComments(this.postId);
     });
   }

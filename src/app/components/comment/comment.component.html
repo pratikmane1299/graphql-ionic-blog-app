@@ -9,7 +9,7 @@
     <p class="comment-text">{{ comment.text }}</p>
     <span class="comment-date-time">{{ formatDate(comment.createdAt) }}</span>
   </div>
-  <div class="comment-options">
+  <div class="comment-options" *ngIf="comment.commentedBy.id === loggedInUser.id">
     <ion-icon name="ellipsis-horizontal-outline" (click)="options(comment.id)"></ion-icon>
   </div>
 </div>

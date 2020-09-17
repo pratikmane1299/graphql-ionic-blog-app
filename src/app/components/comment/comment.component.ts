@@ -10,6 +10,7 @@ import { timeDifferenceForDate } from '../../utils/util';
 export class CommentComponent implements OnInit {
 
   @Input() comment: any;
+  @Input() loggedInUser: any;
   @Output() optionsClick: EventEmitter<string> = new EventEmitter();
   constructor() { }
 

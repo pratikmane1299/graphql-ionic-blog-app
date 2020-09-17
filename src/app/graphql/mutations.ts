@@ -70,6 +70,7 @@ export const addComment = gql`
       text,
       createdAt,
       commentedBy {
+        id,
         username,
         avatar_url
       }

@@ -66,6 +66,7 @@ export const getCommentsForPost = gql`
       text,
       createdAt,
       commentedBy {
+        id,
         username,
         avatar_url
       }
