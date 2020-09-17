@@ -3,9 +3,10 @@ import { ActivatedRoute } from '@angular/router';
 
 import { Apollo, QueryRef } from 'apollo-angular';
 
+import { ActionSheetController, ToastController } from '@ionic/angular';
+
 import { getCommentsForPost, getPostById } from '../graphql/queries';
-import { addComment } from '../graphql/mutations';
-import { ActionSheetController } from '@ionic/angular';
+import { addComment, deleteComment } from '../graphql/mutations';
 
 @Component({
   selector: 'app-comments',
@@ -23,7 +24,8 @@ export class CommentsPage implements OnInit {
   constructor(
     private apollo: Apollo,
     private route: ActivatedRoute,
-    private actionSheetController: ActionSheetController
+    private actionSheetController: ActionSheetController,
+    private toastController: ToastController
   ) { }
 
   ngOnInit() {
@@ -96,17 +98,17 @@ export class CommentsPage implements OnInit {
   }
 
   async showOptions(commentId: string) {
-    await this.showOptionsActionSheet();
+    await this.showOptionsActionSheet(commentId);
   }
 
-  async showOptionsActionSheet() {
+  async showOptionsActionSheet(commentId: string) {
     const actionSheetEl = await this.actionSheetController.create({
       header: 'Action',
       buttons: [{
         text: 'Delete',
         icon: 'trash',
         handler: () => {
-          console.log('Delete Click');
+          this.deleteComment(commentId);
         }
       }, {
         text: 'Cancel',
@@ -116,5 +118,46 @@ export class CommentsPage implements OnInit {
     })
 
     await actionSheetEl.present();
+  }
+
+  deleteComment(commentId: string) {
+    this.apollo.mutate({
+      mutation: deleteComment,
+      variables: {
+        commentId
+      },
+      update: (cache, { data: { deleteComment } }: { data: any }) => {
+        
+        const commentsQuery: any = cache.readQuery({
+          query: getCommentsForPost,
+          variables: {
+            postId: this.postId
+          },
+        })
+
+        const comments: any[] = commentsQuery.comments;
+
+        cache.writeQuery({
+          query: getCommentsForPost,
+          variables: {
+            postId: this.postId
+          },
+          data: {
+            comments: comments.filter(comment => comment.id !== deleteComment.id)
+          }
+        });
+      }
+    }).subscribe(async () => {
+      await this.showToast('Comment deleted');
+    })
+  }
+
+  async showToast(message: string) {
+    const toastEl = await this.toastController.create({
+      message,
+      duration: 1500,
+    });
+
+    toastEl.present();
   }
 }

@@ -76,3 +76,11 @@ export const addComment = gql`
     }
   }
 `;
+
+export const deleteComment = gql`
+  mutation deleteComment($commentId: ID!) {
+    deleteComment(commentId: $commentId) {
+      id
+    }
+  }
+`;
