@@ -35,6 +35,7 @@ export const getPostById = gql`
       thumbnail,
       createdAt,
       likesCount,
+      liked,
       commentsCount,
       author {
         username

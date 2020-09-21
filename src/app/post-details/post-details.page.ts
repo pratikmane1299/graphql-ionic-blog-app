@@ -69,7 +69,11 @@ export class PostDetailsPage implements OnInit {
             id: postId
           },
           data: {
-            post: { ...res.post, likesCount: data['likeUnLikePost']['post']['likesCount'] }
+            post: { 
+              ...res.post,
+              likesCount: data['likeUnLikePost']['post']['likesCount'],
+              liked: !res.post.liked
+            }
           }
         });
       }

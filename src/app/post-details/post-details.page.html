@@ -59,7 +59,7 @@
       </div>
       <div class="likes-comments-container">
         <div class="likes" (click)="likeUnLikePost(post.id)">
-          <ion-icon name="thumbs-up-outline"></ion-icon>
+          <ion-icon name="thumbs-up-outline" [style.color]="post.liked ? '#3880ff' : null "></ion-icon>
           <span class="likes-count">{{ post.likesCount }} Likes</span>
         </div>
         <div class="comments" (click)="viewComments()">
