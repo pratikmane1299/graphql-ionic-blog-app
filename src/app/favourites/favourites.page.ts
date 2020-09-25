@@ -4,9 +4,10 @@ import { Subscription } from 'rxjs';
 import { ToastController } from '@ionic/angular';
 import { Apollo, QueryRef } from 'apollo-angular';
 
-import { getFavouritePosts } from './../graphql/queries';
-import { removePostFromFavourites } from './../graphql/mutations';
+import { FavouritesQueryResponse, getFavouritePosts } from './../graphql/queries';
+import { RemoveFromFavouritesMutationResponse, removePostFromFavourites } from './../graphql/mutations';
 import { async } from '@angular/core/testing';
+import { Post } from '../types';
 
 @Component({
   selector: 'app-favourites',
@@ -16,8 +17,8 @@ import { async } from '@angular/core/testing';
 export class FavouritesPage implements OnInit, OnDestroy {
 
   loading: boolean;
-  favouritePosts: [] = [];
-  favouritesRef: QueryRef<any>;
+  favouritePosts: Post[] = [];
+  favouritesRef: QueryRef<FavouritesQueryResponse>;
   querySubscription: Subscription;
   limit = 8;
   offset = 0;
@@ -34,7 +35,7 @@ export class FavouritesPage implements OnInit, OnDestroy {
 
   getFavouritePosts() {
     this.loading = true;
-    this.favouritesRef = this.apollo.watchQuery<any>({
+    this.favouritesRef = this.apollo.watchQuery<FavouritesQueryResponse>({
       query: getFavouritePosts,
       variables: {
         offset: this.offset,
@@ -81,13 +82,13 @@ export class FavouritesPage implements OnInit, OnDestroy {
   }
 
   removePostFromFavourites(post) {
-    this.apollo.mutate({
+    this.apollo.mutate<RemoveFromFavouritesMutationResponse>({
       mutation: removePostFromFavourites,
       variables: {
         postId: post.id
       },
       update: (cache, { data }) => {
-        const deletedPostId = data['removePostFromFavourites'];
+        const deletedPostId = data.removePostFromFavourites;
         const res: any = cache.readQuery({
           query: getFavouritePosts,
           variables: {

@@ -3,9 +3,10 @@ import { Subscription } from 'rxjs';
 
 import { Apollo, QueryRef } from 'apollo-angular';
 
-import { me } from './../graphql/queries';
+import { LoggedInUserQueryResponse, me } from './../graphql/queries';
 import { formatNumber } from './../utils/util';
 import { Router } from '@angular/router';
+import { User } from '../types';
 
 @Component({
   selector: 'app-profile',
@@ -14,10 +15,10 @@ import { Router } from '@angular/router';
 })
 export class ProfilePage implements OnInit {
 
-  user;
+  user: User;
   loading = true;
   querySubscription: Subscription;
-  profileQuery: QueryRef<any>;
+  profileQuery: QueryRef<LoggedInUserQueryResponse>;
   offset = 0;
   limit = 12;
 
@@ -29,7 +30,7 @@ export class ProfilePage implements OnInit {
 
   fetchProfile() {
     this.loading = true;
-    this.profileQuery = this.apollo.watchQuery<any>({
+    this.profileQuery = this.apollo.watchQuery<LoggedInUserQueryResponse>({
       query: me,
       variables: {
         offset: this.offset,

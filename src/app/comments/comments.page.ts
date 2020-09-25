@@ -5,9 +5,10 @@ import { Apollo, QueryRef } from 'apollo-angular';
 
 import { ActionSheetController, ToastController } from '@ionic/angular';
 
-import { getCommentsForPost, getPostById } from '../graphql/queries';
-import { addComment, deleteComment } from '../graphql/mutations';
+import { CommentsQueryReponse, getCommentsForPost, getPostById, PostDetailsResponse } from '../graphql/queries';
+import { addComment, AddCommentMutationResponse, deleteComment, DeleteCommentMutationResponse } from '../graphql/mutations';
 import { AuthService } from '../services/auth.service';
+import { Comment } from '../types';
 
 @Component({
   selector: 'app-comments',
@@ -17,9 +18,9 @@ import { AuthService } from '../services/auth.service';
 export class CommentsPage implements OnInit {
 
   postId: string;
-  comments: [] = [];
+  comments: Comment[] = [];
   loading: boolean;
-  commentsQueryRef: QueryRef<any>;
+  commentsQueryRef: QueryRef<CommentsQueryReponse>;
   commentText = '';
   user: any;
 
@@ -41,7 +42,7 @@ export class CommentsPage implements OnInit {
 
   getComments(postId: string) {
     this.loading = true;
-    this.commentsQueryRef = this.apollo.watchQuery<any>({
+    this.commentsQueryRef = this.apollo.watchQuery<CommentsQueryReponse>({
       query: getCommentsForPost,
       variables: {
         postId
@@ -55,13 +56,13 @@ export class CommentsPage implements OnInit {
   }
 
   addComment() {
-    this.apollo.mutate({
+    this.apollo.mutate<AddCommentMutationResponse>({
       mutation: addComment,
       variables: {
         postId: this.postId,
         comment: this.commentText
-      }, update: (cache, { data }: { data: any }) => {
-        const commentsQuery: any = cache.readQuery({
+      }, update: (cache, { data }) => {
+        const commentsQuery = cache.readQuery<CommentsQueryReponse>({
           query: getCommentsForPost,
           variables: {
             postId: this.postId
@@ -78,7 +79,7 @@ export class CommentsPage implements OnInit {
           }
         });
 
-        const postQuery: any = cache.readQuery({
+        const postQuery = cache.readQuery<PostDetailsResponse>({
           query: getPostById,
           variables: {
             id: this.postId
@@ -125,21 +126,21 @@ export class CommentsPage implements OnInit {
   }
 
   deleteComment(commentId: string) {
-    this.apollo.mutate({
+    this.apollo.mutate<DeleteCommentMutationResponse>({
       mutation: deleteComment,
       variables: {
         commentId
       },
-      update: (cache, { data: { deleteComment } }: { data: any }) => {
+      update: (cache, { data: { deleteComment } }) => {
         
-        const commentsQuery: any = cache.readQuery({
+        const commentsQuery = cache.readQuery<CommentsQueryReponse>({
           query: getCommentsForPost,
           variables: {
             postId: this.postId
           },
         })
 
-        const comments: any[] = commentsQuery.comments;
+        const comments = commentsQuery.comments;
 
         cache.writeQuery({
           query: getCommentsForPost,

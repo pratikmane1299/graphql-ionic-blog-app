@@ -1,4 +1,5 @@
 import gql from 'graphql-tag';
+import { Post, Comment, User } from '../types';
 
 export const userFeedQuery = gql`
   query feed($offset: Int, $limit: Int) {
@@ -11,6 +12,10 @@ export const userFeedQuery = gql`
     }
   }
 `;
+
+export interface FeedQueryResponse {
+  feed: Post[];
+}
 
 export const getFavouritePosts = gql`
   query getFavouritePosts($offset: Int, $limit: Int){
@@ -25,6 +30,10 @@ export const getFavouritePosts = gql`
     }
   }
 `;
+
+export interface FavouritesQueryResponse {
+  me: User;
+}
 
 export const getPostById = gql`
   query getPost($id: ID!) {
@@ -45,6 +54,10 @@ export const getPostById = gql`
   }
 `;
 
+export interface PostDetailsResponse {
+  post: Post;
+}
+
 export const me = gql`
   query loggedInUser($offset: Int, $limit: Int) {
     me {
@@ -60,6 +73,10 @@ export const me = gql`
   }
 `;
 
+export interface LoggedInUserQueryResponse {
+  me: User;
+}
+
 export const getCommentsForPost = gql`
   query getCommentsForPost($postId: ID!) {
 	  comments (postId: $postId) {
@@ -74,3 +91,7 @@ export const getCommentsForPost = gql`
     }
   }
 `;
+
+export interface CommentsQueryReponse {
+  comments: Comment[];
+}

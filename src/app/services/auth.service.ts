@@ -7,14 +7,14 @@ import { Storage } from '@ionic/storage';
 
 import { Apollo } from 'apollo-angular';
 
-import { signUpMutation, loginMutation } from './../graphql/mutations';
+import { signUpMutation, loginMutation, SignUpMutationResponse, LoginMutationResponse } from './../graphql/mutations';
 
 interface AuthInput {
   username: string;
   password: string;
 }
 
-interface AuthResponse {
+export interface AuthResponse {
   id: string;
   username: string;
   avatar_url: string;
@@ -54,7 +54,7 @@ export class AuthService {
   }
 
   signUp(data: AuthInput) {
-    return this.apollo.mutate({
+    return this.apollo.mutate<SignUpMutationResponse>({
       mutation: signUpMutation,
       variables: {
         username: data.username,
@@ -64,7 +64,7 @@ export class AuthService {
     .pipe(
       take(1),
       map(({ data }) => {
-        return data['signUp'];
+        return data.signUp;
       }),
       switchMap(user => {
         this.userSubject.next(user);
@@ -74,7 +74,7 @@ export class AuthService {
   }
 
   login(data: AuthInput) {
-    return this.apollo.mutate({
+    return this.apollo.mutate<LoginMutationResponse>({
       mutation: loginMutation,
       variables: {
         username: data.username,
@@ -84,7 +84,7 @@ export class AuthService {
     .pipe(
       take(1),
       map(({ data }) => {
-        return data['login'];
+        return data.login;
       }),
       switchMap(user => {
         this.userSubject.next(user);

@@ -2,8 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Apollo, QueryRef } from 'apollo-angular';
 
-import { getPostById } from './../graphql/queries';
-import { likeUnlikeMutation } from './../graphql/mutations';
+import { getPostById, PostDetailsResponse } from './../graphql/queries';
+import { likeUnlikeMutation, LikeUnLikeMutationResponse } from './../graphql/mutations';
+import { Post } from '../types';
 
 @Component({
   selector: 'app-post-details',
@@ -11,9 +12,9 @@ import { likeUnlikeMutation } from './../graphql/mutations';
   styleUrls: ['./post-details.page.scss'],
 })
 export class PostDetailsPage implements OnInit {
-  post: any;
+  post: Post;
   loading = false;
-  postQuery: QueryRef<any>;
+  postQuery: QueryRef<PostDetailsResponse>;
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -34,7 +35,7 @@ export class PostDetailsPage implements OnInit {
 
   getPostDetails(postId: string) {
     this.loading = true;
-    this.postQuery = this.apollo.watchQuery<any>({
+    this.postQuery = this.apollo.watchQuery<PostDetailsResponse>({
       query: getPostById,
       variables: {
         id: postId
@@ -50,13 +51,13 @@ export class PostDetailsPage implements OnInit {
   }
 
   likeUnLikePost(postId: string) {
-    this.apollo.mutate({
+    this.apollo.mutate<LikeUnLikeMutationResponse>({
       mutation: likeUnlikeMutation,
       variables: {
         postId
       },
       update: (cache, { data }) => {
-        const res: any = cache.readQuery({
+        const res = cache.readQuery<PostDetailsResponse>({
           query: getPostById,
           variables: {
             id: postId
@@ -71,7 +72,7 @@ export class PostDetailsPage implements OnInit {
           data: {
             post: { 
               ...res.post,
-              likesCount: data['likeUnLikePost']['post']['likesCount'],
+              likesCount: data.likeUnLikePost.post.likesCount,
               liked: !res.post.liked
             }
           }

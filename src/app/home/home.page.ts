@@ -3,9 +3,10 @@ import { Subscription } from 'rxjs';
 import { IonList, ToastController } from '@ionic/angular';
 import { Apollo, QueryRef } from 'apollo-angular';
 
-import { userFeedQuery, getFavouritePosts } from './../graphql/queries';
-import { addToFavourites } from './../graphql/mutations';
+import { userFeedQuery, getFavouritePosts, FeedQueryResponse } from './../graphql/queries';
+import { addToFavourites, AddToFavouritesMutationResponse } from './../graphql/mutations';
 import { Router } from '@angular/router';
+import { Post } from '../types';
 
 @Component({
   selector: 'app-home',
@@ -14,11 +15,11 @@ import { Router } from '@angular/router';
 })
 export class HomePage implements OnInit, OnDestroy {
 
-  feed: any[];
+  feed: Post[];
 
   loading = false;
   querySubscription: Subscription;
-  feedQuery: QueryRef<any>;
+  feedQuery: QueryRef<FeedQueryResponse>;
   limit = 8;
   offset = 0;
   @ViewChild('ionList') ionList: IonList;
@@ -41,7 +42,7 @@ export class HomePage implements OnInit, OnDestroy {
 
   loadFeed() {
     this.loading = true;
-    this.feedQuery = this.apollo.watchQuery<any>({
+    this.feedQuery = this.apollo.watchQuery<FeedQueryResponse>({
       query: userFeedQuery,
       variables: {
         offset: this.offset,
@@ -90,13 +91,13 @@ export class HomePage implements OnInit, OnDestroy {
 
   async addToFavourites(post) {
     await this.ionList.closeSlidingItems();
-    this.apollo.mutate({
+    this.apollo.mutate<AddToFavouritesMutationResponse>({
       mutation: addToFavourites,
       variables: {
         postId: post.id
       },
       update: (cache , { data }) => {
-        const favouritePost = data['addPostToFavourites'];
+        const favouritePost = data.addPostToFavourites;
         try {
           const res: any = cache.readQuery({
             query: getFavouritePosts,
