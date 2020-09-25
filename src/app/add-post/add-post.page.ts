@@ -3,8 +3,8 @@ import { Router } from '@angular/router';
 
 import { Apollo } from 'apollo-angular';
 
-import { FeedQueryResponse, userFeedQuery } from './../graphql/queries';
-import { addNewPostMutation, AddPostMutationResponse } from './../graphql/mutations';
+import { FeedQueryResponse, USER_FEED_QUERY } from './../graphql/queries';
+import { ADD_NEW_POST_MUTATION, AddPostMutationResponse } from './../graphql/mutations';
 
 @Component({
   selector: 'app-add-post',
@@ -23,14 +23,14 @@ export class AddPostPage implements OnInit {
   onAddPost(post) {
     this.isLoading = true;
     this.apollo.mutate<AddPostMutationResponse>({
-      mutation: addNewPostMutation,
+      mutation: ADD_NEW_POST_MUTATION,
       variables: {
         title: post.title,
         content: post.content,
         thumbnail: post.thumbnail
       }, update: (cache, { data }) => {
         const existingFeed = cache.readQuery<FeedQueryResponse>({
-          query: userFeedQuery,
+          query: USER_FEED_QUERY,
           variables: {
             limit: 8,
             offset: 0
@@ -38,7 +38,7 @@ export class AddPostPage implements OnInit {
         });
         const newPost = data.createPost;
         cache.writeQuery({
-          query: userFeedQuery,
+          query: USER_FEED_QUERY,
           variables: {
             limit: 8,
             offset: 0

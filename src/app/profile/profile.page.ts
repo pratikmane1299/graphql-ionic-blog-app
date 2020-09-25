@@ -3,7 +3,7 @@ import { Subscription } from 'rxjs';
 
 import { Apollo, QueryRef } from 'apollo-angular';
 
-import { LoggedInUserQueryResponse, me } from './../graphql/queries';
+import { LoggedInUserQueryResponse, ME } from './../graphql/queries';
 import { formatNumber } from './../utils/util';
 import { Router } from '@angular/router';
 import { User } from '../types';
@@ -31,7 +31,7 @@ export class ProfilePage implements OnInit {
   fetchProfile() {
     this.loading = true;
     this.profileQuery = this.apollo.watchQuery<LoggedInUserQueryResponse>({
-      query: me,
+      query: ME,
       variables: {
         offset: this.offset,
         limit: this.limit

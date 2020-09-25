@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Apollo, QueryRef } from 'apollo-angular';
 
-import { getPostById, PostDetailsResponse } from './../graphql/queries';
-import { likeUnlikeMutation, LikeUnLikeMutationResponse } from './../graphql/mutations';
+import { GET_POST_By_ID, PostDetailsResponse } from './../graphql/queries';
+import { LIKE_UNLIKE_MUTATION, LikeUnLikeMutationResponse } from './../graphql/mutations';
 import { Post } from '../types';
 
 @Component({
@@ -36,7 +36,7 @@ export class PostDetailsPage implements OnInit {
   getPostDetails(postId: string) {
     this.loading = true;
     this.postQuery = this.apollo.watchQuery<PostDetailsResponse>({
-      query: getPostById,
+      query: GET_POST_By_ID,
       variables: {
         id: postId
       }
@@ -52,20 +52,20 @@ export class PostDetailsPage implements OnInit {
 
   likeUnLikePost(postId: string) {
     this.apollo.mutate<LikeUnLikeMutationResponse>({
-      mutation: likeUnlikeMutation,
+      mutation: LIKE_UNLIKE_MUTATION,
       variables: {
         postId
       },
       update: (cache, { data }) => {
         const res = cache.readQuery<PostDetailsResponse>({
-          query: getPostById,
+          query: GET_POST_By_ID,
           variables: {
             id: postId
           }
         });
 
         cache.writeQuery({
-          query: getPostById,
+          query: GET_POST_By_ID,
           variables: {
             id: postId
           },

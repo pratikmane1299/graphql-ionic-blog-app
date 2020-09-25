@@ -1,7 +1,7 @@
 import gql from 'graphql-tag';
 import { Post, Comment, User } from '../types';
 
-export const userFeedQuery = gql`
+export const USER_FEED_QUERY = gql`
   query feed($offset: Int, $limit: Int) {
     feed(offset: $offset, limit: $limit) {
       id,
@@ -17,7 +17,7 @@ export interface FeedQueryResponse {
   feed: Post[];
 }
 
-export const getFavouritePosts = gql`
+export const GET_FAVOURITE_POSTS = gql`
   query getFavouritePosts($offset: Int, $limit: Int){
     me {
       favourite_posts(offset: $offset, limit: $limit) {
@@ -35,7 +35,7 @@ export interface FavouritesQueryResponse {
   me: User;
 }
 
-export const getPostById = gql`
+export const GET_POST_By_ID = gql`
   query getPost($id: ID!) {
     post(id: $id) {
       id,
@@ -58,7 +58,7 @@ export interface PostDetailsResponse {
   post: Post;
 }
 
-export const me = gql`
+export const ME = gql`
   query loggedInUser($offset: Int, $limit: Int) {
     me {
       id,
@@ -77,7 +77,7 @@ export interface LoggedInUserQueryResponse {
   me: User;
 }
 
-export const getCommentsForPost = gql`
+export const GET_COMMENTS_FOR_POST = gql`
   query getCommentsForPost($postId: ID!) {
 	  comments (postId: $postId) {
       id,
