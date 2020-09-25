@@ -3,6 +3,10 @@ ion-toolbar {
     --ion-color-base: transparent !important;
 }
 
+ion-toolbar.scroll-fix {
+    padding-top: env(safe-area-inset-top);
+}
+
 .header-md::after {
     background-image: none;
 }
