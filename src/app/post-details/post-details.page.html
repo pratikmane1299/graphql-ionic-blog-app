@@ -3,6 +3,12 @@
     <ion-buttons>
       <ion-back-button></ion-back-button>
     </ion-buttons>
+    <ion-buttons slot="end" *ngIf="!loading">
+      <ion-button (click)="toggleFavourite()">
+        <ion-icon slot="icon-only" name="star" *ngIf="post.isFavourite"></ion-icon>
+        <ion-icon slot="icon-only" name="star-outline" *ngIf="!post.isFavourite"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 

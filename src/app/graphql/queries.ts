@@ -46,7 +46,9 @@ export const GET_POST_By_ID = gql`
       likesCount,
       liked,
       commentsCount,
+      isFavourite,
       author {
+        id,
         username
         avatar_url
       }

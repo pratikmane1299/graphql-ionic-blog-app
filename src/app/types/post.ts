@@ -9,5 +9,6 @@ export default interface Post {
   likesCount: number;
   liked: boolean;
   commentsCount: number;
+  isFavourite: boolean;
   author: User
 }
